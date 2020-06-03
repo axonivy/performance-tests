@@ -66,9 +66,9 @@ def runPerformanceTests(String version) {
      
       runPerformanceTest(version, "infoPage", "")
       runPerformanceTest(version, "themeCss", "system/faces/javax.faces.resource/theme.css?ln=primefaces-serenity-ivy")
-      runPerformanceTest(version, "processEngineSimpleLoop", "Performance/pro/Performance/17273CC5183C042A/start.ivp")
-      runPerformanceTest(version, "restElement", "Performance/pro/Performance/17273D0D9D496ED8/element.ivp")
-      runPerformanceTest(version, "restApi", "Performance/pro/Performance/17273D0D9D496ED8/api.ivp")
+      runPerformanceTest(version, "processEngineSimpleLoop", "performance/pro/Performance/17273CC5183C042A/start.ivp")
+      runPerformanceTest(version, "restElement", "performance/pro/Performance/17273D0D9D496ED8/element.ivp")
+      runPerformanceTest(version, "restApi", "performance/pro/Performance/17273D0D9D496ED8/api.ivp")
     }
     
     sh "docker logs ${container.id} > logs/${version}.log"
@@ -102,6 +102,7 @@ def adjustUrlToVersion(String version, String url)
     if (url.contains("/pro/"))
     {
       url = url.replace("/pro/", "/")
+      url = url.capitalize()
       url = "pro/"+url;
     }
   }
@@ -115,6 +116,7 @@ def adjustUrlToVersion(String version, String url)
     if (url.contains("/pro/"))
     {
       url = url.replace("/pro/", "/")
+      url = url.capitalize()
       url = "pro/"+url;
     }
   }
