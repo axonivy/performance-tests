@@ -1,0 +1,3 @@
+RestClients:
+  PersonService:
+    Url: http://{ivy.engine.host}:{ivy.engine.http.port}/{ivy.request.application}/api/persons
