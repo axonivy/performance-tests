@@ -46,6 +46,7 @@ pipeline {
           runPerformanceTests('9.1.s')    
           runPerformanceTests('9.1.n')          
 
+          checkErrors()
           perfReport "results/*.wrk"
         }
       }
@@ -121,4 +122,19 @@ def adjustUrlToVersion(String version, String url)
     }
   }
   return baseUrl + url;
+}
+
+def checkErrors()
+{
+  try
+  {
+    String result = sh(returnStdout: true, 
+                       script: "#!/bin/sh\n"+
+                               "grep 'Non-2xx' results/*.wrk").trim()
+    result = result.replace("\n", ", ")
+    unstable "There are errors in: "+result
+  }
+  catch(exe)
+  {
+  }
 }
