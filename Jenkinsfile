@@ -172,6 +172,7 @@ def createCsvReports()
     times[file.getName()] = parseAverageResponseTime(content) } 
   def tests = toTests(times)
   tests.each{ entry -> writeCSV file: "results/"+entry.key+".csv", records: entry.value }
+  archiveArtifacts artifacts: 'results/*.csv', onlyIfSuccessful: true
 }
 
 def createPlots()
