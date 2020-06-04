@@ -1,3 +1,5 @@
+import static groovy.io.FileType.*
+
 pipeline {
   agent {
     label 'performance-test'
@@ -48,8 +50,15 @@ pipeline {
           runPerformanceTests('8.0.x')        
           runPerformanceTests('9.1.s')    
           runPerformanceTests('9.1.n')          
-
+        }
+      }
+    }
+    stage('report') {
+      steps {
+        script {
           checkErrors()
+          createCsvReports()
+          createPlots()
           perfReport "results/*.wrk"
         }
       }
@@ -140,4 +149,100 @@ def checkErrors()
   catch(exe)
   {
   }
+}
+
+def createCsvReports()
+{
+  def times = [:]
+  def files = findFiles(glob: 'results/*.wrk')
+  files.each{ file -> 
+    def content = readFile(file.toString())
+    times[file.getName()] = parseAverageResponseTime(content) } 
+  def tests = toTests(times)
+  tests.each{ entry -> writeCSV file: "results/"+entry.key+".csv", records: entry.value }
+}
+
+def createPlots()
+{
+  def times = [:]
+  def files = findFiles(glob: 'results/*.csv')
+  files.each{ file -> 
+    def name = file.name.replace(".csv", "")
+    plot csvFileName: "plot-response-time-${name}.csv", 
+         csvSeries: [[displayTableFlag: false, exclusionValues: '', file: file.toString(), inclusionFlag: 'OFF', url: '']], 
+         group: 'Response Times', 
+         numBuilds: '10', 
+         style: 'line', 
+         title: name, 
+         useDescr: true, 
+         yaxis: 'Response Time [ms]'
+  } 
+}
+
+
+def parseAverageResponseTime(String content)
+{
+  def avgResponseTime = 0.0;
+  content.split('\n').each{ line -> 
+    if (line.contains("Latency"))
+    {
+      avgResponseTime = parseAverageResponseTimeFromLine(line)
+    } 
+  }
+  return avgResponseTime
+} 
+
+def parseAverageResponseTimeFromLine(String line)
+{
+  def parts = line.trim().split();
+  def responseTime = parts[1]
+  def factor = 1.0d;
+  if (responseTime.endsWith("ns"))
+  {
+    responseTime = responseTime.substring(0, responseTime.length() - 2)
+    factor = 0.000001d
+  }
+  else if (responseTime.endsWith("us"))
+  {
+    responseTime = responseTime.substring(0, responseTime.length() - 2)
+    factor = 0.001d
+  }
+  else if (responseTime.endsWith("ms"))
+  {
+    responseTime = responseTime.substring(0, responseTime.length() - 2)
+    factor = 1.0d
+  }
+  else if (responseTime.endsWith("s"))
+  {
+    responseTime = responseTime.substring(0, responseTime.length() - 1)
+    factor = 1000.0d
+  }
+  else
+  {
+    throw new IllegalArgumentException("Cannot parse "+responseTime)
+  }
+  def time = Double.parseDouble(responseTime)
+  return time * factor
+}
+
+def toTests(Map times)
+{
+  def tests = [:]
+  times.each{
+      entry -> 
+      def name = entry.key.replace(".wrk", "")
+      def parts = name.split("_")
+      name = parts[1]
+      def version = parts[0]
+      def records = tests[name]
+      def value = entry.value.toString()
+      if (records == null)
+      {
+        records = [[], []]
+        tests[name] = records
+      }
+      records[0].add(version)
+      records[1].add(value)
+  }
+  return tests
 }
