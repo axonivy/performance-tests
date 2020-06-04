@@ -93,6 +93,18 @@ def runPerformanceTest(String version, String name, String url)
   String resultFile = "results/" + version + "_" + name + ".wrk";
   url = adjustUrlToVersion(version, url)
   echo "Testing $url"
+  
+  warmUp(url)
+  test(url, resultFile)
+}
+
+def warmUp(String url)
+{
+  test(url, "/dev/null")
+}
+
+def test(String url, String resultFile)
+{
   sh "#!/bin/sh\n"+
      "wrk -d10s -t1 $url > $resultFile"
 }
