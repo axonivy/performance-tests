@@ -1,5 +1,8 @@
 pipeline {
-  agent any
+  agent {
+    label 'performance-test'
+  }
+
 
   options {
     buildDiscarder(logRotator(numToKeepStr: '180'))
@@ -62,7 +65,7 @@ def runPerformanceTests(String version) {
   docker.image("ivy-$version:${env.BUILD_ID}").withRun() { container ->
     docker.image("wrk:${env.BUILD_ID}").inside(" --link ${container.id}:ivy") {
     
-      sleep 10
+      sleep 25
       echo "Going to test $version"
      
       runPerformanceTest(version, "infoPage", "")
