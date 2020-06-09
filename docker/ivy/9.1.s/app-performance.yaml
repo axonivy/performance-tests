@@ -1,3 +1,8 @@
 RestClients:
   PersonService:
     Url: http://{ivy.engine.host}:{ivy.engine.http.port}/{ivy.request.application}/api/persons
+WebServiceClients:
+  PersonService:
+    Endpoints:
+      PersonServicePort:
+      - http://localhost:8080/performance/ws/Performance/17297D0F7635769C

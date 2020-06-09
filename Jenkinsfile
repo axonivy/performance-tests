@@ -82,6 +82,8 @@ def runPerformanceTests(String version) {
       runPerformanceTest(version, "processEngineSimpleLoop", "performance/pro/Performance/17273CC5183C042A/start.ivp")
       runPerformanceTest(version, "restElement", "performance/pro/Performance/17273D0D9D496ED8/element.ivp")
       runPerformanceTest(version, "restApi", "performance/pro/Performance/17273D0D9D496ED8/api.ivp")
+      runPerformanceTest(version, "soapElement", "performance/pro/Performance/17297D7F72BCF2F9/element.ivp")
+      runPerformanceTest(version, "dbElement", "performance/pro/Performance/17297CB96C670B79/element.ivp")
     }
     
     sh "docker logs ${container.id} > logs/${version}.log"
