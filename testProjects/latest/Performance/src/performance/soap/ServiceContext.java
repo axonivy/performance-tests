@@ -39,7 +39,7 @@ public class ServiceContext
   private static String extractServerUrl(URL url)
   {
     String protocol = url.getProtocol();
-    String host = url.getHost();
+    String host = "localhost";
     int port = url.getPort();
     if (port == -1)
     {
