@@ -35,7 +35,7 @@ Multiple Dockerfiles are located in subdirectories of the directory `docker` to 
 
 ### WRK
 
-[WRK]{https://github.com/wg/wrk} is a modern HTTP benchmarking tool to generate HTTP request load on a server. Its usage is as simple as:
+[WRK](https://github.com/wg/wrk) is a modern HTTP benchmarking tool to generate HTTP request load on a server. Its usage is as simple as:
 
     wrk -c10 -t1 -d10s http://dev.axonivy.com
 	
