@@ -32,6 +32,7 @@ pipeline {
           prepareIvyContainer('7.2.0')
           prepareIvyContainer('8.0.0')
           prepareIvyContainer('8.0.x')
+		  prepareIvyContainer('8.0.n')
           prepareIvyContainer('9.1.s')
           prepareIvyContainer('9.1.n')
         }
@@ -48,6 +49,7 @@ pipeline {
           runPerformanceTests('7.2.0')
           runPerformanceTests('8.0.0')  
           runPerformanceTests('8.0.x')        
+		  runPerformanceTests('8.0.n')        
           runPerformanceTests('9.1.s')    
           runPerformanceTests('9.1.n')          
         }
