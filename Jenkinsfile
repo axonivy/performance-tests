@@ -111,7 +111,7 @@ def warmUp(String url)
 def test(String url, String resultFile)
 {
   sh "#!/bin/sh\n"+
-     "wrk -d10s -t1 $url > $resultFile"
+     "wrk -d10s -t1 --timeout 10s $url > $resultFile"
 }
 
 def adjustUrlToVersion(String version, String url)
