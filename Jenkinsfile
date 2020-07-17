@@ -32,7 +32,7 @@ pipeline {
           prepareIvyContainer('7.2.0')
           prepareIvyContainer('8.0.0')
           prepareIvyContainer('8.0.x')
-		  prepareIvyContainer('8.0.n')
+          prepareIvyContainer('8.0.n')
           prepareIvyContainer('9.1.s')
           prepareIvyContainer('9.1.n')
         }
@@ -42,14 +42,11 @@ pipeline {
     stage('test') {
       steps {
         script {
-          sh "#!/bin/sh\n" +
-             "mkdir -p results\n" +
-             "mkdir -p logs\n"
-
+          sh "rm -rf results && rm -rf logs && mkdir -p results && mkdir -p logs"
           runPerformanceTests('7.2.0')
           runPerformanceTests('8.0.0')  
           runPerformanceTests('8.0.x')        
-		  runPerformanceTests('8.0.n')        
+          runPerformanceTests('8.0.n')        
           runPerformanceTests('9.1.s')    
           runPerformanceTests('9.1.n')          
         }
@@ -84,9 +81,9 @@ def runPerformanceTests(String version) {
       runPerformanceTest(version, "processEngineSimpleLoop", "performance/pro/Performance/17273CC5183C042A/start.ivp")
       runPerformanceTest(version, "restElement", "performance/pro/Performance/17273D0D9D496ED8/element.ivp")
       runPerformanceTest(version, "restApi", "performance/pro/Performance/17273D0D9D496ED8/api.ivp")
-      runPerformanceTest(version, "soapElement", "performance/pro/Performance/17297D7F72BCF2F9/element.ivp")
+      //runPerformanceTest(version, "soapElement", "performance/pro/Performance/17297D7F72BCF2F9/element.ivp")
       runPerformanceTest(version, "dbElement", "performance/pro/Performance/17297CB96C670B79/element.ivp")
-	  runPerformanceTest(version, "rule", "performance/pro/Performance/172E670BBE4A3218/compileAndExecuteRule.ivp")
+      runPerformanceTest(version, "rule", "performance/pro/Performance/172E670BBE4A3218/compileAndExecuteRule.ivp")
     }
     
     sh "docker logs ${container.id} > logs/${version}.log"
