@@ -33,8 +33,9 @@ pipeline {
           prepareIvyContainer('8.0.0')
           prepareIvyContainer('8.0.x')
           prepareIvyContainer('8.0.n')
-          prepareIvyContainer('9.1.s')
-          prepareIvyContainer('9.1.n')
+          prepareIvyContainer('9.1.0')
+          prepareIvyContainer('sprint')
+          prepareIvyContainer('nightly')
         }
       }
     }
@@ -44,11 +45,12 @@ pipeline {
         script {
           sh "rm -rf results && rm -rf logs && mkdir -p results && mkdir -p logs"
           runPerformanceTests('7.2.0')
-          runPerformanceTests('8.0.0')  
-          runPerformanceTests('8.0.x')        
-          runPerformanceTests('8.0.n')        
-          runPerformanceTests('9.1.s')    
-          runPerformanceTests('9.1.n')          
+          runPerformanceTests('8.0.0')
+          runPerformanceTests('8.0.x')
+          runPerformanceTests('8.0.n')
+          runPerformanceTests('9.1.0')
+          runPerformanceTests('sprint')
+          runPerformanceTests('nightly')
         }
       }
     }
