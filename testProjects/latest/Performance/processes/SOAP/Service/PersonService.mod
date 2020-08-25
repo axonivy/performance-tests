@@ -52,22 +52,24 @@ Pe0 f1 actionCode 'import java.util.UUID;
 import performance.rest.service.Person;
 
 Person person = new Person();
-
 person.FirstName="Bruno";
 person.LastName="Bütler";
 person.Id = UUID.randomUUID();
 in.persons.add(person);
 
+person = new Person();
 person.FirstName="Reto";
 person.LastName="Weiss";
 person.Id = UUID.randomUUID();
 in.persons.add(person);
 
+person = new Person();
 person.FirstName="Renato";
 person.LastName="Stalder";
 person.Id = UUID.randomUUID();
 in.persons.add(person);
 
+person = new Person();
 person.FirstName="Reguel";
 person.LastName="Wermelinger";
 person.Id = UUID.randomUUID();
