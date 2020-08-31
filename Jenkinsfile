@@ -83,7 +83,7 @@ def runPerformanceTests(String version) {
       runPerformanceTest(version, "processEngineSimpleLoop", "performance/pro/Performance/17273CC5183C042A/start.ivp")
       runPerformanceTest(version, "restElement", "performance/pro/Performance/17273D0D9D496ED8/element.ivp")
       runPerformanceTest(version, "restApi", "performance/pro/Performance/17273D0D9D496ED8/api.ivp")
-      //runPerformanceTest(version, "soapElement", "performance/pro/Performance/17297D7F72BCF2F9/element.ivp")
+      runPerformanceTest(version, "soapElement", "performance/pro/Performance/17297D7F72BCF2F9/element.ivp")
       runPerformanceTest(version, "dbElement", "performance/pro/Performance/17297CB96C670B79/element.ivp")
       runPerformanceTest(version, "rule", "performance/pro/Performance/172E670BBE4A3218/compileAndExecuteRule.ivp")
     }
@@ -156,15 +156,49 @@ def checkErrors()
 {
   try
   {
-    String result = sh(returnStdout: true, 
+    def result = sh(returnStdout: true, 
                        script: "#!/bin/sh\n"+
-                               "grep 'Non-2xx' results/*.wrk").trim()
+                               "grep -l 'Non-2xx' results/*.wrk").trim()
     result = result.replace("\n", ", ")
-    unstable "There are errors in: "+result
+    def errors = result.split(", ");
+    if (isUnstable(errors))
+    {
+	  unstable "There are errors in: "+result
+    }
   }
   catch(exe)
   {
   }
+}
+
+def isUnstable(String[] errors)
+{
+  for (def error : errors)
+  {
+      if (!knownIssue(error))
+      {
+          return true;
+      }
+  }
+  return false;
+}
+
+def knownIssue(String error)
+{
+  def blacklist = ["results/7.2.0_soapElement.wrk", 
+                   "results/8.0.0_soapElement.wrk", 
+                   "results/8.0.x_soapElement.wrk", 
+                   "results/9.1.0_soapElement.wrk", 
+                   "results/sprint_soapElement.wrk"]
+      
+  for (def black : blacklist)
+  {
+    if (black.equals(error))
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
 def createCsvReports()
