@@ -5,13 +5,11 @@ import ch.ivyteam.log.Logger;
 
 public class LogGenerator
 {
-  private static final int COUNT = 1000;
-
   private static final Logger LOGGER = Logger.getLogger(LogGenerator.class);
 
   public static void logErrors()
   {
-    for (int i = 0; i < COUNT; i++)
+    for (int i = 0; i < 50; i++)
     {
       logError();
     }
@@ -34,7 +32,7 @@ public class LogGenerator
 
   public static void logDebugs()
   {
-    for (int i = 0; i < COUNT; i++)
+    for (int i = 0; i < 1000; i++)
     {
       logDebug();
     }
