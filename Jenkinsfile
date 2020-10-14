@@ -224,7 +224,7 @@ def createPlots()
     plot csvFileName: "plot-response-time-${name}.csv", 
          csvSeries: [[displayTableFlag: false, exclusionValues: '', file: file.toString(), inclusionFlag: 'OFF', url: '']], 
          group: 'Response Times', 
-         numBuilds: '10', 
+         numBuilds: '100', 
          style: 'line', 
          title: name, 
          useDescr: true, 
