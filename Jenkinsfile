@@ -18,11 +18,9 @@ pipeline {
     stage('build-test-projects') {
       steps  {
         script {
-          docker.withRegistry('', 'docker.io') {
-            docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/Dockerfile .').inside {
-              maven cmd: 'clean verify -f testProjects/latest/Performance/pom.xml'
-            }
-          }
+          docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/Dockerfile .').inside {
+            maven cmd: 'clean verify -f testProjects/latest/Performance/pom.xml'
+          }         
         }
       }
     }
@@ -30,16 +28,14 @@ pipeline {
     stage('build-containers') {
       steps {
         script {
-          docker.withRegistry('', 'docker.io') {
-            docker.build("wrk:${env.BUILD_ID}", '-f docker/wrk/Dockerfile .')
-            prepareIvyContainer('7.2.0')
-            prepareIvyContainer('8.0.0')
-            prepareIvyContainer('8.0.x')
-            prepareIvyContainer('8.0.n')
-            prepareIvyContainer('9.1.0')
-            prepareIvyContainer('sprint')
-            prepareIvyContainer('nightly')
-          }
+          docker.build("wrk:${env.BUILD_ID}", '-f docker/wrk/Dockerfile .')
+          prepareIvyContainer('7.2.0')
+          prepareIvyContainer('8.0.0')
+          prepareIvyContainer('8.0.x')
+          prepareIvyContainer('8.0.n')
+          prepareIvyContainer('9.1.0')
+          prepareIvyContainer('sprint')
+          prepareIvyContainer('nightly')
         }
       }
     }
@@ -48,15 +44,13 @@ pipeline {
       steps {
         script {
           sh "rm -rf results && rm -rf logs && mkdir -p results && mkdir -p logs"
-          docker.withRegistry('', 'docker.io') {
-            runPerformanceTests('7.2.0')
-            runPerformanceTests('8.0.0')
-            runPerformanceTests('8.0.x')
-            runPerformanceTests('8.0.n')
-            runPerformanceTests('9.1.0')
-            runPerformanceTests('sprint')
-            runPerformanceTests('nightly')
-          }
+          runPerformanceTests('7.2.0')
+          runPerformanceTests('8.0.0')
+          runPerformanceTests('8.0.x')
+          runPerformanceTests('8.0.n')
+          runPerformanceTests('9.1.0')
+          runPerformanceTests('sprint')
+          runPerformanceTests('nightly')
         }
       }
     }
