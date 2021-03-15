@@ -1,10 +1,9 @@
 [Ivy]
-17273CC5183C042A 3.23 #module
+17273CC5183C042A 9.2.0 #module
 >Proto >Proto Collection #zClass
 Sp0 SimpleLoop Big #zClass
 Sp0 B #cInfo
 Sp0 #process
-Sp0 @TextInP .resExport .resExport #zField
 Sp0 @TextInP .type .type #zField
 Sp0 @TextInP .processKind .processKind #zField
 Sp0 @AnnotationInP-0n ai ai #zField
@@ -22,23 +21,19 @@ Sp0 @PushWFArc f4 '' #zField
 Sp0 @PushWFArc f7 '' #zField
 >Proto Sp0 Sp0 SimpleLoop #zField
 Sp0 f0 outLink start.ivp #txt
-Sp0 f0 type performance.SimpleLoop #txt
 Sp0 f0 inParamDecl '<> param;' #txt
 Sp0 f0 inParamTable 'out.counter=500;
 ' #txt
-Sp0 f0 actionDecl 'performance.SimpleLoop out;
-' #txt
-Sp0 f0 guid 17273CC522C7C8FE #txt
 Sp0 f0 requestEnabled true #txt
 Sp0 f0 triggerEnabled false #txt
 Sp0 f0 callSignature start() #txt
 Sp0 f0 persist false #txt
-Sp0 f0 taskData 'TaskTriggered.ROL=Everybody
+Sp0 f0 taskData 'TaskTriggered.EXPRI=2
+TaskTriggered.EXROL=Everybody
 TaskTriggered.EXTYPE=0
-TaskTriggered.EXPRI=2
-TaskTriggered.TYPE=0
 TaskTriggered.PRI=2
-TaskTriggered.EXROL=Everybody' #txt
+TaskTriggered.ROL=Everybody
+TaskTriggered.TYPE=0' #txt
 Sp0 f0 caseData businessCase.attach=true #txt
 Sp0 f0 showInStartList 1 #txt
 Sp0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -50,24 +45,15 @@ Sp0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 ' #txt
 Sp0 f0 @C|.responsibility Everybody #txt
 Sp0 f0 81 81 30 30 -21 17 #rect
-Sp0 f0 @|StartRequestIcon #fIcon
-Sp0 f1 type performance.SimpleLoop #txt
 Sp0 f1 433 81 30 30 0 15 #rect
-Sp0 f1 @|EndIcon #fIcon
-Sp0 f3 type performance.SimpleLoop #txt
 Sp0 f3 336 80 32 32 0 16 #rect
-Sp0 f3 @|AlternativeIcon #fIcon
 Sp0 f2 expr in #txt
 Sp0 f2 outCond 'in.counter <= 0' #txt
 Sp0 f2 368 96 433 96 #arcP
-Sp0 f5 actionDecl 'performance.SimpleLoop out;
-' #txt
 Sp0 f5 actionTable 'out=in;
 out.counter=in.counter - 1;
 ' #txt
-Sp0 f5 type performance.SimpleLoop #txt
 Sp0 f5 168 74 112 44 0 -8 #rect
-Sp0 f5 @|StepIcon #fIcon
 Sp0 f6 expr out #txt
 Sp0 f6 111 96 168 96 #arcP
 Sp0 f4 expr out #txt

@@ -1,10 +1,9 @@
 [Ivy]
-17273D0D9D496ED8 3.23 #module
+17273D0D9D496ED8 9.2.0 #module
 >Proto >Proto Collection #zClass
 Rt0 RestClient Big #zClass
 Rt0 B #cInfo
 Rt0 #process
-Rt0 @TextInP .resExport .resExport #zField
 Rt0 @TextInP .type .type #zField
 Rt0 @TextInP .processKind .processKind #zField
 Rt0 @AnnotationInP-0n ai ai #zField
@@ -24,21 +23,17 @@ Rt0 @EndTask f8 '' #zField
 Rt0 @PushWFArc f9 '' #zField
 >Proto Rt0 Rt0 RestClient #zField
 Rt0 f0 outLink element.ivp #txt
-Rt0 f0 type performance.rest.RestData #txt
 Rt0 f0 inParamDecl '<> param;' #txt
-Rt0 f0 actionDecl 'performance.rest.RestData out;
-' #txt
-Rt0 f0 guid 17273D0D9D848B21 #txt
 Rt0 f0 requestEnabled true #txt
 Rt0 f0 triggerEnabled false #txt
 Rt0 f0 callSignature element() #txt
 Rt0 f0 persist false #txt
-Rt0 f0 taskData 'TaskTriggered.ROL=Everybody
+Rt0 f0 taskData 'TaskTriggered.EXPRI=2
+TaskTriggered.EXROL=Everybody
 TaskTriggered.EXTYPE=0
-TaskTriggered.EXPRI=2
-TaskTriggered.TYPE=0
 TaskTriggered.PRI=2
-TaskTriggered.EXROL=Everybody' #txt
+TaskTriggered.ROL=Everybody
+TaskTriggered.TYPE=0' #txt
 Rt0 f0 caseData businessCase.attach=true #txt
 Rt0 f0 showInStartList 1 #txt
 Rt0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -50,36 +45,28 @@ Rt0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 ' #txt
 Rt0 f0 @C|.responsibility Everybody #txt
 Rt0 f0 81 49 30 30 -31 17 #rect
-Rt0 f0 @|StartRequestIcon #fIcon
-Rt0 f1 type performance.rest.RestData #txt
 Rt0 f1 337 49 30 30 0 15 #rect
-Rt0 f1 @|EndIcon #fIcon
 Rt0 f3 clientId 66449c3d-3315-4036-985e-8d7956bff2cc #txt
 Rt0 f3 resultType List<performance.rest.service.Person> #txt
 Rt0 f3 responseCode 'in.persons = result;' #txt
 Rt0 f3 clientErrorCode ivy:error:rest:client #txt
 Rt0 f3 statusErrorCode ivy:error:rest:client #txt
 Rt0 f3 168 42 112 44 0 -8 #rect
-Rt0 f3 @|RestClientCallIcon #fIcon
 Rt0 f4 expr out #txt
 Rt0 f4 111 64 168 64 #arcP
 Rt0 f2 280 64 337 64 #arcP
 Rt0 f5 outLink api.ivp #txt
-Rt0 f5 type performance.rest.RestData #txt
 Rt0 f5 inParamDecl '<> param;' #txt
-Rt0 f5 actionDecl 'performance.rest.RestData out;
-' #txt
-Rt0 f5 guid 17273D1525155728 #txt
 Rt0 f5 requestEnabled true #txt
 Rt0 f5 triggerEnabled false #txt
 Rt0 f5 callSignature api() #txt
 Rt0 f5 persist false #txt
-Rt0 f5 taskData 'TaskTriggered.ROL=Everybody
+Rt0 f5 taskData 'TaskTriggered.EXPRI=2
+TaskTriggered.EXROL=Everybody
 TaskTriggered.EXTYPE=0
-TaskTriggered.EXPRI=2
-TaskTriggered.TYPE=0
 TaskTriggered.PRI=2
-TaskTriggered.EXROL=Everybody' #txt
+TaskTriggered.ROL=Everybody
+TaskTriggered.TYPE=0' #txt
 Rt0 f5 caseData businessCase.attach=true #txt
 Rt0 f5 showInStartList 1 #txt
 Rt0 f5 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -91,23 +78,16 @@ Rt0 f5 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 ' #txt
 Rt0 f5 @C|.responsibility Everybody #txt
 Rt0 f5 81 177 30 30 -17 17 #rect
-Rt0 f5 @|StartRequestIcon #fIcon
-Rt0 f6 actionDecl 'performance.rest.RestData out;
-' #txt
 Rt0 f6 actionTable 'out=in;
 ' #txt
 Rt0 f6 actionCode 'import performance.rest.service.Person;
 import ch.ivyteam.ivy.rest.client.GenericTypes;
 
 in.persons = ivy.rest.client("PersonService").request().get(GenericTypes.listOf(Person.class)) as List<Person>;' #txt
-Rt0 f6 type performance.rest.RestData #txt
 Rt0 f6 168 170 112 44 0 -8 #rect
-Rt0 f6 @|StepIcon #fIcon
 Rt0 f7 expr out #txt
 Rt0 f7 111 192 168 192 #arcP
-Rt0 f8 type performance.rest.RestData #txt
 Rt0 f8 337 177 30 30 0 15 #rect
-Rt0 f8 @|EndIcon #fIcon
 Rt0 f9 expr out #txt
 Rt0 f9 280 192 337 192 #arcP
 >Proto Rt0 .type performance.rest.RestData #txt

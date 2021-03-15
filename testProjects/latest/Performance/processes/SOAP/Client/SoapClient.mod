@@ -1,10 +1,9 @@
 [Ivy]
-17297D7F72BCF2F9 3.23 #module
+17297D7F72BCF2F9 9.2.0 #module
 >Proto >Proto Collection #zClass
 St0 SoapClient Big #zClass
 St0 B #cInfo
 St0 #process
-St0 @TextInP .resExport .resExport #zField
 St0 @TextInP .type .type #zField
 St0 @TextInP .processKind .processKind #zField
 St0 @AnnotationInP-0n ai ai #zField
@@ -19,23 +18,19 @@ St0 @PushWFArc f4 '' #zField
 St0 @PushWFArc f2 '' #zField
 >Proto St0 St0 SoapClient #zField
 St0 f0 outLink element.ivp #txt
-St0 f0 type performance.soap.SoapData #txt
 St0 f0 inParamDecl '<> param;' #txt
 St0 f0 inParamTable 'out.context=performance.soap.ServiceContext.create();
 ' #txt
-St0 f0 actionDecl 'performance.soap.SoapData out;
-' #txt
-St0 f0 guid 17297D7F72DCF12A #txt
 St0 f0 requestEnabled true #txt
 St0 f0 triggerEnabled false #txt
 St0 f0 callSignature element() #txt
 St0 f0 persist false #txt
-St0 f0 taskData 'TaskTriggered.ROL=Everybody
+St0 f0 taskData 'TaskTriggered.EXPRI=2
+TaskTriggered.EXROL=Everybody
 TaskTriggered.EXTYPE=0
-TaskTriggered.EXPRI=2
-TaskTriggered.TYPE=0
 TaskTriggered.PRI=2
-TaskTriggered.EXROL=Everybody' #txt
+TaskTriggered.ROL=Everybody
+TaskTriggered.TYPE=0' #txt
 St0 f0 caseData businessCase.attach=true #txt
 St0 f0 showInStartList 1 #txt
 St0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -47,23 +42,16 @@ St0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 ' #txt
 St0 f0 @C|.responsibility Everybody #txt
 St0 f0 81 49 30 30 -31 17 #rect
-St0 f0 @|StartRequestIcon #fIcon
-St0 f1 type performance.soap.SoapData #txt
 St0 f1 337 49 30 30 0 15 #rect
-St0 f1 @|EndIcon #fIcon
-St0 f3 type performance.soap.SoapData #txt
-St0 f3 actionDecl 'performance.soap.SoapData out;
-' #txt
 St0 f3 actionTable 'out=in;
 out.persons=wsResponse;
 ' #txt
-St0 f3 timeout 0 #txt
-St0 f3 beanConfig "" #txt
 St0 f3 clientId 17297D66BE667121 #txt
 St0 f3 port PersonServicePort #txt
 St0 f3 operation call #txt
+St0 f3 beanConfig "" #txt
+St0 f3 timeout 0 #txt
 St0 f3 168 42 112 44 0 -8 #rect
-St0 f3 @|WebServiceIcon #fIcon
 St0 f4 expr out #txt
 St0 f4 111 64 168 64 #arcP
 St0 f2 expr out #txt

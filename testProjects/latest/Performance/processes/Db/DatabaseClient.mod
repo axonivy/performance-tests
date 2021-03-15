@@ -1,10 +1,9 @@
 [Ivy]
-17297CB96C670B79 3.23 #module
+17297CB96C670B79 9.2.0 #module
 >Proto >Proto Collection #zClass
 Dt0 DatabaseClient Big #zClass
 Dt0 B #cInfo
 Dt0 #process
-Dt0 @TextInP .resExport .resExport #zField
 Dt0 @TextInP .type .type #zField
 Dt0 @TextInP .processKind .processKind #zField
 Dt0 @AnnotationInP-0n ai ai #zField
@@ -19,21 +18,17 @@ Dt0 @PushWFArc f4 '' #zField
 Dt0 @PushWFArc f2 '' #zField
 >Proto Dt0 Dt0 DatabaseClient #zField
 Dt0 f0 outLink element.ivp #txt
-Dt0 f0 type performance.db.DbData #txt
 Dt0 f0 inParamDecl '<> param;' #txt
-Dt0 f0 actionDecl 'performance.db.DbData out;
-' #txt
-Dt0 f0 guid 17297CB96CD2D4DA #txt
 Dt0 f0 requestEnabled true #txt
 Dt0 f0 triggerEnabled false #txt
 Dt0 f0 callSignature element() #txt
 Dt0 f0 persist false #txt
-Dt0 f0 taskData 'TaskTriggered.ROL=Everybody
+Dt0 f0 taskData 'TaskTriggered.EXPRI=2
+TaskTriggered.EXROL=Everybody
 TaskTriggered.EXTYPE=0
-TaskTriggered.EXPRI=2
-TaskTriggered.TYPE=0
 TaskTriggered.PRI=2
-TaskTriggered.EXROL=Everybody' #txt
+TaskTriggered.ROL=Everybody
+TaskTriggered.TYPE=0' #txt
 Dt0 f0 caseData businessCase.attach=true #txt
 Dt0 f0 showInStartList 1 #txt
 Dt0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -45,10 +40,7 @@ Dt0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 ' #txt
 Dt0 f0 @C|.responsibility Everybody #txt
 Dt0 f0 81 49 30 30 -31 17 #rect
-Dt0 f0 @|StartRequestIcon #fIcon
-Dt0 f1 type performance.db.DbData #txt
 Dt0 f1 337 49 30 30 0 15 #rect
-Dt0 f1 @|EndIcon #fIcon
 Dt0 f3 actionDecl 'performance.db.DbData out;
 ' #txt
 Dt0 f3 actionTable 'out=in;
@@ -62,7 +54,6 @@ Dt0 f3 lotSize 2147483647 #txt
 Dt0 f3 startIdx 0 #txt
 Dt0 f3 type performance.db.DbData #txt
 Dt0 f3 168 42 112 44 0 -8 #rect
-Dt0 f3 @|DBStepIcon #fIcon
 Dt0 f4 expr out #txt
 Dt0 f4 111 64 168 64 #arcP
 Dt0 f2 expr out #txt

@@ -1,0 +1,4 @@
+RestData #class
+performance.rest #namespace
+persons List<performance.rest.service.Person> #field
+persons PERSISTENT #fieldModifier
