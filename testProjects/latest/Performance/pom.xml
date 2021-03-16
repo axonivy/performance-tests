@@ -11,8 +11,11 @@
       <plugin>
         <groupId>com.axonivy.ivy.ci</groupId>
         <artifactId>project-build-plugin</artifactId>
-        <version>7.2.0</version>
+        <version>9.2.2</version>
         <extensions>true</extensions>
+        <configuration>
+          <engineListPageUrl>https://jenkins.ivyteam.io/job/ivy-core_product/job/master/lastSuccessfulBuild/</engineListPageUrl>
+        </configuration>
       </plugin>
     </plugins>
   </build>
