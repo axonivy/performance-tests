@@ -13,9 +13,11 @@
         <artifactId>project-build-plugin</artifactId>
         <version>9.2.2</version>
         <extensions>true</extensions>
-        <configuration>
+        <!-- 
+        configuration>
           <engineListPageUrl>https://jenkins.ivyteam.io/job/ivy-core_product/job/master/lastSuccessfulBuild/</engineListPageUrl>
         </configuration>
+        -->
       </plugin>
     </plugins>
   </build>
