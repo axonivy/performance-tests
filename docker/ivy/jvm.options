@@ -1,0 +1,62 @@
+################################################################
+# JVM options of the Axon Ivy Engine
+################################################################
+
+# General settings
+
+-XX:-OmitStackTraceInFastThrow
+
+#----------------------------------------------------------------
+
+# Memory Settings
+# Xms represents the initial size of total heap space
+#
+# Xmx represents the maximum size of total heap space. 
+# Default is 2 GB which is fine for small installations. 
+# For medium or large installation this value has to be increased.
+# The heap space can be monitored in the Engine Cockpit. 
+# Have a look at Monitor > Engine > Memory
+
+-Xms128m
+-Xmx2g
+
+#----------------------------------------------------------------
+
+# Garbage collector
+
+-XX:+UseG1GC
+-XX:+UseStringDeduplication
+
+#----------------------------------------------------------------
+
+# Headless mode
+# no X11 environment is required
+
+-Djava.awt.headless=true
+
+#----------------------------------------------------------------
+
+# JMX Settings
+# enable these settings if you want to have jmx access from another
+# user on the same machine or from a remote host.
+
+#-Dcom.sun.management.jmxremote.port=9003
+#-Dcom.sun.management.jmxremote.login.config=jmx
+#-Djava.security.auth.login.config=configuration/jaas.config
+#-Dcom.sun.management.jmxremote.ssl=false
+#-Dcom.sun.management.jmxremote.autodiscovery=true 
+
+# define the ip address or hostname of this machine, on which
+# the jmx port should be bound for remote access.
+
+#-Djava.rmi.server.hostname=<IP of the machine>
+
+#----------------------------------------------------------------
+
+# Remote Debugging
+# enable these settings to activate Java remote debugging
+
+#-agentlib:jdwp=transport=dt_socket,server=y,address=*:8000,suspend=n
+
+-XX:StartFlightRecording=dumponexit=true,filename=recording.jfr,settings=profile
+-XX:FlightRecorderOptions=stackdepth=256

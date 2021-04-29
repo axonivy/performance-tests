@@ -48,7 +48,7 @@ pipeline {
     stage('test') {
       steps {
         script {
-          sh "rm -rf results && rm -rf logs && mkdir -p results && mkdir -p logs"
+          sh "rm -rf results && rm -rf logs && rm -rf recordings && mkdir -p results && mkdir -p logs && mkdir -p recordings"
           runPerformanceTests('7.2.0')
           runPerformanceTests('8.0.0')
           runPerformanceTests('8.0.x')
@@ -78,9 +78,11 @@ def prepareIvyContainer(String version) {
 }
 
 def runPerformanceTests(String version) {
-  docker.image("ivy-$version:${env.BUILD_ID}").withRun() { container ->
+  var container = docker.image("ivy-$version:${env.BUILD_ID}").run()
+
+  try {
     docker.image("wrk:${env.BUILD_ID}").inside(" --link ${container.id}:ivy") {
-    
+      
       sleep 25
       echo "Going to test $version"
      
@@ -98,6 +100,13 @@ def runPerformanceTests(String version) {
     }
 
     sh "docker logs ${container.id} > logs/${version}.log"
+    if (!version.startsWith("7.") && !version.startsWith("8.0.")) {
+      sh "docker stop ${container.id}"
+      sh "docker cp ${container.id}:/usr/lib/axonivy-engine/recording.jfr recordings/${version}.jfr"
+    }
+  }
+  finally {
+    container.stop()
   }
 }
 
