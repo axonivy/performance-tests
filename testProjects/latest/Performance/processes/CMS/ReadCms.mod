@@ -1,10 +1,9 @@
 [Ivy]
-1791C5396913061C 3.23 #module
+1791C5396913061C 9.3.0 #module
 >Proto >Proto Collection #zClass
 Rs0 ReadCms Big #zClass
 Rs0 B #cInfo
 Rs0 #process
-Rs0 @TextInP .resExport .resExport #zField
 Rs0 @TextInP .type .type #zField
 Rs0 @TextInP .processKind .processKind #zField
 Rs0 @AnnotationInP-0n ai ai #zField
@@ -19,21 +18,17 @@ Rs0 @PushWFArc f4 '' #zField
 Rs0 @PushWFArc f2 '' #zField
 >Proto Rs0 Rs0 ReadCms #zField
 Rs0 f0 outLink readCms.ivp #txt
-Rs0 f0 type performance.Data #txt
 Rs0 f0 inParamDecl '<> param;' #txt
-Rs0 f0 actionDecl 'performance.Data out;
-' #txt
-Rs0 f0 guid 1791C53969F243D2 #txt
 Rs0 f0 requestEnabled true #txt
 Rs0 f0 triggerEnabled false #txt
 Rs0 f0 callSignature readCms() #txt
 Rs0 f0 persist false #txt
-Rs0 f0 taskData 'TaskTriggered.ROL=Everybody
+Rs0 f0 taskData 'TaskTriggered.EXPRI=2
+TaskTriggered.EXROL=Everybody
 TaskTriggered.EXTYPE=0
-TaskTriggered.EXPRI=2
-TaskTriggered.TYPE=0
 TaskTriggered.PRI=2
-TaskTriggered.EXROL=Everybody' #txt
+TaskTriggered.ROL=Everybody
+TaskTriggered.TYPE=0' #txt
 Rs0 f0 caseData businessCase.attach=true #txt
 Rs0 f0 showInStartList 1 #txt
 Rs0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -45,12 +40,7 @@ Rs0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 ' #txt
 Rs0 f0 @C|.responsibility Everybody #txt
 Rs0 f0 81 49 30 30 -35 17 #rect
-Rs0 f0 @|StartRequestIcon #fIcon
-Rs0 f1 type performance.Data #txt
 Rs0 f1 337 49 30 30 0 15 #rect
-Rs0 f1 @|EndIcon #fIcon
-Rs0 f3 actionDecl 'performance.Data out;
-' #txt
 Rs0 f3 actionTable 'out=in;
 ' #txt
 Rs0 f3 actionCode 'import java.util.Random;
@@ -60,9 +50,7 @@ for (int count = 0; count < 100; count++)
 {
 	String co = ivy.cms.co("/labels/label"+random.nextInt(10000));
 }' #txt
-Rs0 f3 type performance.Data #txt
 Rs0 f3 168 42 112 44 0 -8 #rect
-Rs0 f3 @|StepIcon #fIcon
 Rs0 f4 expr out #txt
 Rs0 f4 111 64 168 64 #arcP
 Rs0 f2 expr out #txt
