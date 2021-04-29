@@ -1,5 +1,5 @@
 [Ivy]
-17491D197ECC2DB6 9.2.0 #module
+17491D197ECC2DB6 9.3.0 #module
 >Proto >Proto Collection #zClass
 Lg0 Logging Big #zClass
 Lg0 B #cInfo

@@ -1,10 +1,9 @@
 [Ivy]
-1791C53DC81E6D3E 3.23 #module
+1791C53DC81E6D3E 9.3.0 #module
 >Proto >Proto Collection #zClass
 Fs0 FillCms Big #zClass
 Fs0 B #cInfo
 Fs0 #process
-Fs0 @TextInP .resExport .resExport #zField
 Fs0 @TextInP .type .type #zField
 Fs0 @TextInP .processKind .processKind #zField
 Fs0 @AnnotationInP-0n ai ai #zField
@@ -16,11 +15,7 @@ Fs0 @EndTask f1 '' #zField
 Fs0 @GridStep f3 '' #zField
 Fs0 @PushWFArc f2 '' #zField
 >Proto Fs0 Fs0 FillCms #zField
-Fs0 f1 type performance.Data #txt
 Fs0 f1 337 49 30 30 0 15 #rect
-Fs0 f1 @|EndIcon #fIcon
-Fs0 f3 actionDecl 'performance.Data out;
-' #txt
 Fs0 f3 actionTable 'out=in;
 ' #txt
 Fs0 f3 actionCode 'import org.apache.commons.lang3.RandomStringUtils;
@@ -38,9 +33,7 @@ for(int count = 0; count < 10000; count++)
   String content = RandomStringUtils.randomAlphabetic(10, 100);
   value.setContent(""+content, "rwei");
 }' #txt
-Fs0 f3 type performance.Data #txt
 Fs0 f3 168 42 112 44 0 -8 #rect
-Fs0 f3 @|StepIcon #fIcon
 Fs0 f2 expr out #txt
 Fs0 f2 280 64 337 64 #arcP
 >Proto Fs0 .type performance.Data #txt
