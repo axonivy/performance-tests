@@ -78,8 +78,7 @@ def prepareIvyContainer(String version) {
 }
 
 def runPerformanceTests(String version) {
-  var container = docker.image("ivy-$version:${env.BUILD_ID}").run()
-
+  container = docker.image("ivy-$version:${env.BUILD_ID}").run()
   try {
     docker.image("wrk:${env.BUILD_ID}").inside(" --link ${container.id}:ivy") {
       
