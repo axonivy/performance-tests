@@ -99,7 +99,7 @@ def runPerformanceTests(String version) {
     }
 
     sh "docker logs ${container.id} > logs/${version}.log"
-    if (!version.startsWith("7.") && !version.startsWith("8.0.")) {
+    if (!version.startsWith("7.") && !version.startsWith("8.0.0")) {
       sh "docker stop ${container.id}"
       sh "docker cp ${container.id}:/usr/lib/axonivy-engine/recording.jfr recordings/${version}.jfr"
     }
