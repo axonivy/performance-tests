@@ -60,3 +60,15 @@ During the report stage, I use groovy to parse the wrk result files located in t
 The average response times of all result files of the same test are summarized in a CSV that is used by the Plot plugin to draw the Response Time diagrams.
 
 The console output of each ivy container is redirected to the `logs` directory for later analyses.
+
+### Running tests on your developer machine
+
+You can run single tests also on your developer machine. 
+
+1. Use `mvn clean verify` to build the test projects
+2. Use `docker-compose up -d ivy-xxx wrk` to start the wrk and the ivy container under test
+3. Use `docker ps` to find the containter id of the wrk container and the ivy container under test
+4. Use `docker exec -it {wrk container id} sh` to start a shell in the wrk container
+5. Use `wrk -c10 -d60 http://ivy-xxx:8080/performance/pro/Performance/xxx/yyy.ivp` to execute a performance test
+6. Use `docker stop {ivy container id}` to stop the ivy container and trigger the JFR file to be written
+7. Use `docker cp {ivy container id}:/usr/lib/axonivy-engine/recording.jfr c:\tmp\nightly.jfr` to copy the JFR recording file to your host system (only 8.0.x and higher)
