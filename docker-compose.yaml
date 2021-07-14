@@ -1,0 +1,55 @@
+version: '3.5'
+services:
+  ivy-nightly:
+    build: 
+      context: .
+      dockerfile: docker/ivy/nightly/Dockerfile
+
+# to get external access uncomment the following lines   
+#  ports: 
+#  - 8080:8080
+
+  ivy-sprint:
+    build: 
+      context: .
+      dockerfile: docker/ivy/sprint/Dockerfile
+  ivy-910:
+    build: 
+      context: .
+      dockerfile: docker/ivy/9.1.0/Dockerfile
+  ivy-920:
+    build: 
+      context: .
+      dockerfile: docker/ivy/9.2.0/Dockerfile
+  ivy-80n:
+    build: 
+      context: .
+      dockerfile: docker/ivy/8.0.n/Dockerfile
+  ivy-800:
+    build: 
+      context: .
+      dockerfile: docker/ivy/8.0.0/Dockerfile
+  ivy-80x:
+    build: 
+      context: .
+      dockerfile: docker/ivy/8.0.x/Dockerfile
+  ivy-720:
+    build: 
+      context: .
+      dockerfile: docker/ivy/7.2.0/Dockerfile
+  #
+  # 1. Use >docker ps< to find the containter id of the wrk container and the ivy container under test
+  # 2. Use >docker exec -it {wrk container id} sh< to start a shell in the wrk container
+  # 3. Use >wrk -c10 -d60 http://ivy-xxx:8080/performance/pro/Performance/xxx/yyy.ivp< to execute a performance test
+  # 4. Use >docker stop {ivy container id}< to stop the ivy container and trigger the JFR file to be written
+  # 5. Use >docker cp {ivy container id}:/usr/lib/axonivy-engine/recording.jfr c:\tmp\nightly.jfr< to copy the JFR recording file to your host system (only 8.0.x and higher)
+  #
+  wrk: 
+    build: 
+      context: .
+      dockerfile: docker/wrk/Dockerfile
+    command: /bin/sh
+    tty: true
+    stdin_open: true
+    
+    
