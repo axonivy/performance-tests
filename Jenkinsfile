@@ -49,14 +49,18 @@ pipeline {
       steps {
         script {
           sh "rm -rf results && rm -rf logs && rm -rf recordings && mkdir -p results && mkdir -p logs && mkdir -p recordings"
+          
+          // frequently updated:
+          runPerformanceTests('nightly')
+          runPerformanceTests('8.0.n')
+          runPerformanceTests('8.0.x')
+          runPerformanceTests('sprint')
+
+          // static releases
           runPerformanceTests('7.2.0')
           runPerformanceTests('8.0.0')
-          runPerformanceTests('8.0.x')
-          runPerformanceTests('8.0.n')
           runPerformanceTests('9.1.0')
           runPerformanceTests('9.2.0')
-          runPerformanceTests('sprint')
-          runPerformanceTests('nightly')
         }
       }
     }
