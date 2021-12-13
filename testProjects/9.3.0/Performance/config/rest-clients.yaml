@@ -1,0 +1,8 @@
+RestClients:
+  PersonService:
+    UUID: 66449c3d-3315-4036-985e-8d7956bff2cc
+    Url: http://{ivy.engine.host}:{ivy.engine.http.port}/{ivy.engine.context}/api/{ivy.request.application}/persons
+    Features:
+    - ch.ivyteam.ivy.rest.client.mapper.JsonFeature
+    Properties:
+      JSON.Deserialization.FAIL_ON_UNKNOWN_PROPERTIES: 'false'

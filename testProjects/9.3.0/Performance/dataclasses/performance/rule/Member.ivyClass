@@ -1,0 +1,8 @@
+Member #class
+performance.rule #namespace
+purchaseAmount Number #field
+purchaseAmount PERSISTENT #fieldModifier
+discount Number #field
+discount PERSISTENT #fieldModifier
+memberType performance.rule.MemberType #field
+memberType PERSISTENT #fieldModifier
