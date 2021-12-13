@@ -1,5 +1,5 @@
 [Ivy]
-17297D0F7635769C 9.3.0 #module
+17297D0F7635769C 9.3.1 #module
 >Proto >Proto Collection #zClass
 Pe0 PersonService Big #zClass
 Pe0 WS #cInfo
@@ -75,7 +75,7 @@ Pe0 f2 111 64 168 64 #arcP
 Pe0 f0 expr out #txt
 Pe0 f0 280 64 337 64 #arcP
 >Proto Pe0 .webServiceName performance.PersonService #txt
->Proto Pe0 .authenticationType 'None or Container' #txt
+>Proto Pe0 .authenticationType NONE #txt
 >Proto Pe0 .type performance.rest.RestData #txt
 >Proto Pe0 .processKind WEB_SERVICE #txt
 >Proto Pe0 .xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
