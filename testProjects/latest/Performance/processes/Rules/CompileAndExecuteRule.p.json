@@ -1,0 +1,50 @@
+{
+  "format" : "9.4.8",
+  "id" : "172E670BBE4A3218",
+  "data" : "performance.rule.Member",
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "compileAndExecuteRule.ivp",
+      "config" : {
+        "callSignature" : "compileAndExecuteRule",
+        "input" : {
+          "map" : {
+            "out.memberType" : "performance.rule.MemberType.Silver",
+            "out.purchaseAmount" : "1000"
+          }
+        },
+        "outLink" : "compileAndExecuteRule.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "labelOffset" : { "x" : -76, "y" : 17 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import ch.ivyteam.ivy.rule.engine.api.IRuleBase;",
+            "",
+            "IRuleBase ruleBase = ivy.rules.engine.createRuleBase();",
+            "ruleBase.loadRulesFromNamespace(\"rule.engine.drl\");",
+            "",
+            "ruleBase.createSession().execute(in);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    } ]
+}

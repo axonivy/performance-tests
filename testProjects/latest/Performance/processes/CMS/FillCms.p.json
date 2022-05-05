@@ -1,0 +1,40 @@
+{
+  "format" : "9.4.8",
+  "id" : "1791C53DC81E6D3E",
+  "data" : "performance.Data",
+  "elements" : [ {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import org.apache.commons.lang3.RandomStringUtils;",
+            "import org.apache.commons.lang3.StringUtils;",
+            "import ch.ivyteam.ivy.cm.IContentObjectValue;",
+            "import ch.ivyteam.ivy.cm.IContentObject;",
+            "import ch.ivyteam.ivy.cm.CoType;",
+            "import java.util.Locale;",
+            "",
+            "IContentObject labels = ivy.cms.getRootContentObject().addChild(\"labels\", \"Labels\", CoType.FOLDER, \"rwei\");",
+            "for(int count = 0; count < 10000; count++)",
+            "{",
+            "  IContentObject label = labels.addChild(\"label\"+count, \"Label \"+count, CoType.STRING, \"rwei\");",
+            "  IContentObjectValue value = label.addValue(\"Label \"+count, null, null, Locale.ENGLISH, \"rwei\", true, \"\");",
+            "  String content = RandomStringUtils.randomAlphabetic(10, 100);",
+            "  value.setContent(\"\"+content, \"rwei\");",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    } ]
+}
