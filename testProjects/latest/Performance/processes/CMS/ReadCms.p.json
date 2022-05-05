@@ -1,0 +1,45 @@
+{
+  "format" : "9.4.8",
+  "id" : "1791C5396913061C",
+  "data" : "performance.Data",
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "readCms.ivp",
+      "config" : {
+        "callSignature" : "readCms",
+        "outLink" : "readCms.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "labelOffset" : { "x" : -35, "y" : 17 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import java.util.Random;",
+            "",
+            "Random random = new Random();",
+            "for (int count = 0; count < 100; count++)",
+            "{",
+            "  String co = ivy.cms.co(\"/labels/label\"+random.nextInt(10000));",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    } ]
+}

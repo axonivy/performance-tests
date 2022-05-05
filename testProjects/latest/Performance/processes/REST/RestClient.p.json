@@ -1,0 +1,75 @@
+{
+  "format" : "9.4.8",
+  "id" : "17273D0D9D496ED8",
+  "data" : "performance.rest.RestData",
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "element.ivp",
+      "config" : {
+        "callSignature" : "element",
+        "outLink" : "element.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "labelOffset" : { "x" : -31, "y" : 17 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "RestClientCall",
+      "config" : {
+        "clientId" : "66449c3d-3315-4036-985e-8d7956bff2cc",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "statusErrorCode" : "ivy:error:rest:client",
+        "resultType" : "List<performance.rest.service.Person>",
+        "responseCode" : "in.persons = result;"
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    }, {
+      "id" : "f5",
+      "type" : "RequestStart",
+      "name" : "api.ivp",
+      "config" : {
+        "callSignature" : "api",
+        "outLink" : "api.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 192 },
+        "labelOffset" : { "x" : -17, "y" : 17 }
+      },
+      "connect" : { "id" : "f7", "to" : "f6" }
+    }, {
+      "id" : "f6",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import performance.rest.service.Person;",
+            "import ch.ivyteam.ivy.rest.client.GenericTypes;",
+            "",
+            "in.persons = ivy.rest.client(\"PersonService\").request().get(GenericTypes.listOf(Person.class)) as List<Person>;"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 192 }
+      },
+      "connect" : { "id" : "f9", "to" : "f8" }
+    }, {
+      "id" : "f8",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 192 }
+      }
+    } ]
+}

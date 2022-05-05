@@ -1,0 +1,46 @@
+{
+  "format" : "9.4.8",
+  "id" : "17297CB96C670B79",
+  "data" : "performance.db.DbData",
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "element.ivp",
+      "config" : {
+        "callSignature" : "element",
+        "outLink" : "element.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "labelOffset" : { "x" : -31, "y" : 17 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "Database",
+      "config" : {
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.recordset" : "recordset"
+          }
+        },
+        "dbUrl" : "SystemDatabase",
+        "dbSql" : [
+          "<?xml version=\"\"1.0\"\" standalone=\"\"no\"\"?>",
+          "<!DOCTYPE SELECT SYSTEM  \"\"sqlStatements.dtd\"\">",
+          "<SELECT><Table name='IWA_PERMISSION'/></SELECT>"
+        ]
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    } ]
+}
