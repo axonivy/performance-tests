@@ -8,11 +8,6 @@
       "name" : "element.ivp",
       "config" : {
         "callSignature" : "element",
-        "input" : {
-          "map" : {
-            "out.context" : "performance.soap.ServiceContext.create()"
-          }
-        },
         "outLink" : "element.ivp"
       },
       "visual" : {
