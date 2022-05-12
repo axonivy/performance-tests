@@ -88,10 +88,8 @@ def runPerformanceTests(String version) {
   container = docker.image("ivy-$version:${env.BUILD_ID}").run()
   try {
     docker.image("wrk:${env.BUILD_ID}").inside(" --link ${container.id}:ivy") {
-      
-      sleep 25
+      sleep 60
       echo "Going to test $version"
-     
       runPerformanceTest(version, "infoPage", "")
       runPerformanceTest(version, "themeCss", "system/faces/javax.faces.resource/theme.css?ln=primefaces-serenity-ivy")
       runPerformanceTest(version, "processEngineSimpleLoop", "performance/pro/Performance/17273CC5183C042A/start.ivp")
