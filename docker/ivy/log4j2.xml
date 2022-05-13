@@ -1,0 +1,18 @@
+<Configuration status="warn">
+  <Appenders>
+    <RollingRandomAccessFile name="ErrorLog" fileName="logs/error.log" filePattern="logs/error-%d{MM-dd-yyyy}.log.gz" ignoreExceptions="false">
+      <PatternLayout pattern="${pattern}" />
+      <TimeBasedTriggeringPolicy />
+    </RollingRandomAccessFile>
+  </Appenders>
+
+  <Loggers>
+    <!-- for error log performance test -->
+    <Logger name="performance.log.LogGenerator" level="info" includeLocation="false" additivity="false">
+      <AppenderRef ref="ErrorLog" />
+    </Logger>
+    <Logger name="runtimelog.performance.Performance.user_code" level="info" includeLocation="false" additivity="false">
+      <AppenderRef ref="ErrorLog" />
+    </Logger>
+  </Loggers>
+</Configuration>

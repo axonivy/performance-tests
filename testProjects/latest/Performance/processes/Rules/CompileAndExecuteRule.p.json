@@ -35,10 +35,10 @@
           "code" : [
             "import ch.ivyteam.ivy.rule.engine.api.IRuleBase;",
             "",
-            "IRuleBase ruleBase = ivy.rules.engine.createRuleBase();",
-            "ruleBase.loadRulesFromNamespace(\"rule.engine.drl\");",
-            "",
-            "ruleBase.createSession().execute(in);"
+            "ivy.rules.create()",
+            "  .namespace(\"rule.engine.drl\")",
+            "  .executor()",
+            "  .execute(in);"
           ]
         }
       },

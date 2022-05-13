@@ -87,11 +87,9 @@ def prepareIvyContainer(String version) {
 def runPerformanceTests(String version) {
   container = docker.image("ivy-$version:${env.BUILD_ID}").run()
   try {
+    waitUntilIvyIsRunning(container)
     docker.image("wrk:${env.BUILD_ID}").inside(" --link ${container.id}:ivy") {
-      
-      sleep 25
       echo "Going to test $version"
-     
       runPerformanceTest(version, "infoPage", "")
       runPerformanceTest(version, "themeCss", "system/faces/javax.faces.resource/theme.css?ln=primefaces-serenity-ivy")
       runPerformanceTest(version, "processEngineSimpleLoop", "performance/pro/Performance/17273CC5183C042A/start.ivp")
@@ -113,6 +111,15 @@ def runPerformanceTests(String version) {
   }
   finally {
     container.stop()
+  }
+}
+
+def waitUntilIvyIsRunning(def container) {
+  timeout(2) {
+    waitUntil {
+      def exitCode = sh script: "docker exec ${container.id} wget -t 1 -q http://localhost:8080/ -O /dev/null", returnStatus: true
+      return exitCode == 0;
+    }
   }
 }
 
@@ -176,49 +183,36 @@ def adjustUrlToVersion(String version, String url)
   return baseUrl + url;
 }
 
-def checkErrors()
-{
-  try
-  {
-    def result = sh(returnStdout: true, 
-                       script: "#!/bin/sh\n"+
-                               "grep -l 'Non-2xx' results/*.wrk").trim()
+def checkErrors() {
+  try {
+    def result = sh(returnStdout: true, script: "#!/bin/sh\n" + "grep -l 'Non-2xx' results/*.wrk").trim()
     result = result.replace("\n", ", ")
     def errors = result.split(", ");
-    if (isUnstable(errors))
-    {
-	  unstable "There are errors in: "+result
+    if (isUnstable(errors)) {
+	    unstable "There are errors in: "+result
     }
-  }
-  catch(exe)
-  {
+  } catch(exe) {
   }
 }
 
-def isUnstable(String[] errors)
-{
-  for (def error : errors)
-  {
-      if (!knownIssue(error))
-      {
-          return true;
-      }
+def isUnstable(String[] errors) {
+  for (def error : errors) {
+    if (!knownIssue(error)) {
+      return true;
+    }
   }
   return false;
 }
 
-def knownIssue(String error)
-{
+def knownIssue(String error) {
   def blacklist = ["results/7.2.0_soapElement.wrk", 
                    "results/8.0.0_soapElement.wrk", 
                    "results/8.0.x_soapElement.wrk", 
                    "results/9.1.0_soapElement.wrk", 
                    "results/sprint_soapElement.wrk"]
-      
-  for (def black : blacklist)
-  {
-    if (black.equals(error))
-    {
+
+  for (def black : blacklist) {
+    if (black.equals(error)) {
       return true;
     }
   }

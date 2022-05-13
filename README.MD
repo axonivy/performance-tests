@@ -1,8 +1,10 @@
-# Performance Test Suite of Axon.ivy Digital Business Platform
+# Performance Test Suite of the Axon Ivy Platform
 
 ## Build
 
 [Build](https://jenkins.ivyteam.io/job/ivy-core_performance-tests/job/master/)
+
+If this build is yellow graph the console log after "There are errors in".
 
 ## Add a new test process
 
