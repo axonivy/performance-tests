@@ -87,8 +87,8 @@ def prepareIvyContainer(String version) {
 def runPerformanceTests(String version) {
   container = docker.image("ivy-$version:${env.BUILD_ID}").run()
   try {
+    waitUntilIvyIsRunning(container)
     docker.image("wrk:${env.BUILD_ID}").inside(" --link ${container.id}:ivy") {
-      sleep 60
       echo "Going to test $version"
       runPerformanceTest(version, "infoPage", "")
       runPerformanceTest(version, "themeCss", "system/faces/javax.faces.resource/theme.css?ln=primefaces-serenity-ivy")
@@ -111,6 +111,15 @@ def runPerformanceTests(String version) {
   }
   finally {
     container.stop()
+  }
+}
+
+def waitUntilIvyIsRunning(def container) {
+  timeout(1) {
+    waitUntil {
+      def exitCode = sh script: "docker exec ${container.id} -T ivy wget -t 1 -q http://localhost:8080/ -O /dev/null", returnStatus: true
+      return exitCode == 0;
+    }
   }
 }
 
