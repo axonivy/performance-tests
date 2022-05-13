@@ -117,7 +117,7 @@ def runPerformanceTests(String version) {
 def waitUntilIvyIsRunning(def container) {
   timeout(1) {
     waitUntil {
-      def exitCode = sh script: "docker exec ${container.id} -T ivy wget -t 1 -q http://localhost:8080/ -O /dev/null", returnStatus: true
+      def exitCode = sh script: "docker exec ${container.id} wget -t 1 -q http://localhost:8080/ -O /dev/null", returnStatus: true
       return exitCode == 0;
     }
   }
