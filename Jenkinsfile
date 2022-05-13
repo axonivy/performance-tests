@@ -87,7 +87,11 @@ def prepareIvyContainer(String version) {
 def runPerformanceTests(String version) {
   container = docker.image("ivy-$version:${env.BUILD_ID}").run()
   try {
-    waitUntilIvyIsRunning(container)
+    if (version == '7.2.0') {
+      sleep 40
+    } else {
+      waitUntilIvyIsRunning(container)
+    }
     docker.image("wrk:${env.BUILD_ID}").inside(" --link ${container.id}:ivy") {
       echo "Going to test $version"
       runPerformanceTest(version, "infoPage", "")
