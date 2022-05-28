@@ -17,7 +17,7 @@
         <version>${project.build.plugin.version}</version>
         <extensions>true</extensions>
         <configuration>
-          <engineListPageUrl>https://jenkins.ivyteam.io/job/ivy-core_product/job/master/lastSuccessfulBuild/</engineListPageUrl>
+          <engineListPageUrl>https://jenkins.ivyteam.io/job/core_product/job/master/lastSuccessfulBuild/</engineListPageUrl>
         </configuration>
       </plugin>
     </plugins>
