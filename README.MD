@@ -2,7 +2,7 @@
 
 ## Build
 
-[Build](https://jenkins.ivyteam.io/job/ivy-core_performance-tests/job/master/)
+[Build](https://jenkins.ivyteam.io/job/performance-tests/job/master/)
 
 If this build is yellow graph the console log after "There are errors in".
 
