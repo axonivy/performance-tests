@@ -2,7 +2,7 @@ import static groovy.io.FileType.*
 
 pipeline {
   agent {
-    label 'performance-test'
+    label 'performance-test-stable'
   }
 
   options {
