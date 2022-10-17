@@ -17,14 +17,11 @@ pipeline {
     stage('build-test-projects') {
       steps  {
         script {
-          docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/8/Dockerfile .').inside {
-            maven cmd: 'clean verify -f testProjects/7.2.0/Performance/pom.xml'
-          }
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/11/Dockerfile .').inside {
-            maven cmd: 'clean verify -f testProjects/9.2.0/Performance/pom.xml'
-            maven cmd: 'clean verify -f testProjects/9.3.0/Performance/pom.xml'
+            maven cmd: 'clean verify -f testProjects/8.0.0/Performance/pom.xml'
           }
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/17/Dockerfile .').inside {
+            maven cmd: 'clean verify -f testProjects/10.0.0/Performance/pom.xml'
             maven cmd: 'clean verify -f testProjects/latest/Performance/pom.xml'
           }
         }
@@ -35,13 +32,12 @@ pipeline {
       steps {
         script {
           docker.build("wrk:${env.BUILD_ID}", '-f docker/wrk/Dockerfile .')
-          prepareIvyContainer('7.2.0')
           prepareIvyContainer('8.0.0')
           prepareIvyContainer('8.0.x')
           prepareIvyContainer('8.0.n')
-          prepareIvyContainer('9.1.0')
-          prepareIvyContainer('9.2.0')
-          prepareIvyContainer('9.3.0')
+          prepareIvyContainer('10.0.0')
+          prepareIvyContainer('10.0.x')
+          prepareIvyContainer('10.0.n')
           prepareIvyContainer('sprint')
           prepareIvyContainer('nightly')
         }
@@ -57,14 +53,13 @@ pipeline {
           runPerformanceTests('nightly')
           runPerformanceTests('8.0.n')
           runPerformanceTests('8.0.x')
+          runPerformanceTests('10.0.n')
+          runPerformanceTests('10.0.x')
           runPerformanceTests('sprint')
 
           // static releases
-          runPerformanceTests('7.2.0')
           runPerformanceTests('8.0.0')
-          runPerformanceTests('9.1.0')
-          runPerformanceTests('9.2.0')
-          runPerformanceTests('9.3.0')
+          runPerformanceTests('10.0.0')
         }
       }
     }
@@ -88,11 +83,7 @@ def prepareIvyContainer(String version) {
 def runPerformanceTests(String version) {
   container = docker.image("ivy-$version:${env.BUILD_ID}").run()
   try {
-    if (version == '7.2.0') {
-      sleep 40
-    } else {
-      waitUntilIvyIsRunning(container)
-    }
+    waitUntilIvyIsRunning(container)
     docker.image("wrk:${env.BUILD_ID}").inside(" --link ${container.id}:ivy") {
       echo "Going to test $version"
       runPerformanceTest(version, "infoPage", "")
@@ -109,7 +100,7 @@ def runPerformanceTests(String version) {
     }
 
     sh "docker logs ${container.id} > logs/${version}.log"
-    if (!version.startsWith("7.") && !version.startsWith("8.0.0")) {
+    if (!version.startsWith("8.0.0")) {
       sh "docker stop ${container.id}"
       sh "docker cp ${container.id}:/usr/lib/axonivy-engine/recording.jfr recordings/${version}.jfr"
     }

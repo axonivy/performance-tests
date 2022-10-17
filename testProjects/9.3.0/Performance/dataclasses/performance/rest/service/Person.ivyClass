@@ -1,8 +1,0 @@
-Person #class
-performance.rest.service #namespace
-FirstName String #field
-FirstName PERSISTENT #fieldModifier
-LastName String #field
-LastName PERSISTENT #fieldModifier
-Id java.util.UUID #field
-Id PERSISTENT #fieldModifier

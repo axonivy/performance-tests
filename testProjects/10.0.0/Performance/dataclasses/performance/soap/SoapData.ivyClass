@@ -1,0 +1,4 @@
+SoapData #class
+performance.soap #namespace
+persons List<performance.client.Person> #field
+persons PERSISTENT #fieldModifier

@@ -1,9 +1,0 @@
-WebServiceClients:
-  PersonService:
-    Id: 17297D66BE667121
-    WsdlUrl: http://localhost:8081/ivy/ws/designer/Performance/17297D0F7635769C?WSDL
-    WsCallLibrary: CXF
-    ServiceClass: performance.client.PersonServiceService
-    Endpoints:
-      PersonServicePort:
-      - <%=in.context.uri%>/ivy/ws/<%=in.context.app%>/Performance/17297D0F7635769C
