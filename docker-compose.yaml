@@ -13,14 +13,6 @@ services:
     build: 
       context: .
       dockerfile: docker/ivy/sprint/Dockerfile
-  ivy-910:
-    build: 
-      context: .
-      dockerfile: docker/ivy/9.1.0/Dockerfile
-  ivy-920:
-    build: 
-      context: .
-      dockerfile: docker/ivy/9.2.0/Dockerfile
   ivy-80n:
     build: 
       context: .
@@ -33,10 +25,18 @@ services:
     build: 
       context: .
       dockerfile: docker/ivy/8.0.x/Dockerfile
-  ivy-720:
+  ivy-10n:
     build: 
       context: .
-      dockerfile: docker/ivy/7.2.0/Dockerfile
+      dockerfile: docker/ivy/10.0.n/Dockerfile
+  ivy-100:
+    build: 
+      context: .
+      dockerfile: docker/ivy/10.0.0/Dockerfile
+  ivy-10x:
+    build: 
+      context: .
+      dockerfile: docker/ivy/10.0.x/Dockerfile
   #
   # 1. Use >docker ps< to find the containter id of the wrk container and the ivy container under test
   # 2. Use >docker exec -it {wrk container id} sh< to start a shell in the wrk container
