@@ -97,15 +97,18 @@ def runPerformanceTests(String version) {
       runPerformanceTest(version, "logDebug", "performance/pro/Performance/17491D197ECC2DB6/logDebug.ivp")
       runPerformanceTest(version, "logError", "performance/pro/Performance/17491D197ECC2DB6/logErrors.ivp")
       runPerformanceTest(version, "cms", "performance/pro/Performance/1791C5396913061C/readCms.ivp")
+      
+      runOnce(version, "businessDataFill", "performance/pro/Performance/1848AB6ADCA8F207/fillBusinessData.ivp")      
+      runPerformanceTest(version, "businessDataSearch", "performance/pro/Performance/1848AB6ADCA8F207/searchBusinessData.ivp")
+      runPerformanceTest(version, "businessDataFind", "performance/pro/Performance/1848AB6ADCA8F207/findBusinessData.ivp")
     }
-
+  }
+  finally {
     sh "docker logs ${container.id} > logs/${version}.log"
     if (!version.startsWith("8.0.0")) {
       sh "docker stop ${container.id}"
       sh "docker cp ${container.id}:/usr/lib/axonivy-engine/recording.jfr recordings/${version}.jfr"
     }
-  }
-  finally {
     container.stop()
   }
 }
@@ -119,8 +122,14 @@ def waitUntilIvyIsRunning(def container) {
   }
 }
 
-def runPerformanceTest(String version, String name, String url)
-{
+def runOnce(String version, String name, String url) {
+  String resultFile = "results/" + version + "_" + name + ".wrk";
+  url = adjustUrlToVersion(version, url)
+  echo "Run once $url"
+  sh "wget -O/dev/null -q $url"
+}
+
+def runPerformanceTest(String version, String name, String url) {
   String resultFile = "results/" + version + "_" + name + ".wrk";
   url = adjustUrlToVersion(version, url)
   echo "Testing $url"
@@ -129,48 +138,38 @@ def runPerformanceTest(String version, String name, String url)
   test(url, resultFile)
 }
 
-def warmUp(String url)
-{
+def warmUp(String url) {
   test(url, "/dev/null")
 }
 
-def test(String url, String resultFile)
-{
+def test(String url, String resultFile) {
   sh "#!/bin/sh\n"+
      "wrk -d10s -t1 --timeout 10s $url > $resultFile"
 }
 
-def adjustUrlToVersion(String version, String url)
-{
+def adjustUrlToVersion(String version, String url) {
   baseUrl = "http://ivy:8080/";
-  if (version.startsWith("7."))
-  {
+  if (version.startsWith("7.")) {
     baseUrl += "ivy/";
-    if (url.contains("system/faces/javax.faces.resource/"))
-    {
+    if (url.contains("system/faces/javax.faces.resource/")) {
       url = url.replace("system/faces/javax.faces.resource/", "javax.faces.resource/");
     }
 
-    if (url.contains("?ln=primefaces-serenity-ivy"))
-    {
+    if (url.contains("?ln=primefaces-serenity-ivy")) {
       url = url.replace("?ln=primefaces-serenity-ivy", ".xhtml?ln=primefaces-modena-ivy");
     }
-    if (url.contains("/pro/"))
-    {
+    if (url.contains("/pro/")) {
       url = url.replace("/pro/", "/")
       url = url.capitalize()
       url = "pro/"+url;
     }
   }
-  if (version.startsWith("8."))
-  {
+  if (version.startsWith("8.")) {
     baseUrl += "ivy/";
-    if (url.contains("system/faces/javax.faces.resource/"))
-    {
+    if (url.contains("system/faces/javax.faces.resource/")) {
       url = url.replace("system/faces/javax.faces.resource/", "sys/javax.faces.resource/");
     }
-    if (url.contains("/pro/"))
-    {
+    if (url.contains("/pro/")) {
       url = url.replace("/pro/", "/")
       url = url.capitalize()
       url = "pro/"+url;
@@ -215,8 +214,7 @@ def knownIssue(String error) {
   return false;
 }
 
-def createCsvReports()
-{
+def createCsvReports() {
   def times = [:]
   def files = findFiles(glob: 'results/*.wrk')
   files.each{ file -> 
@@ -227,8 +225,7 @@ def createCsvReports()
   archiveArtifacts artifacts: 'results/*.csv', onlyIfSuccessful: true
 }
 
-def createPlots()
-{
+def createPlots() {
   def times = [:]
   def files = findFiles(glob: 'results/*.csv')
   files.each{ file -> 
@@ -244,54 +241,44 @@ def createPlots()
   } 
 }
 
-
-def parseAverageResponseTime(String content)
-{
+def parseAverageResponseTime(String content) {
   def avgResponseTime = 0.0;
   content.split('\n').each{ line -> 
-    if (line.contains("Latency"))
-    {
+    if (line.contains("Latency")) {
       avgResponseTime = parseAverageResponseTimeFromLine(line)
     } 
   }
   return avgResponseTime
 } 
 
-def parseAverageResponseTimeFromLine(String line)
-{
+def parseAverageResponseTimeFromLine(String line) {
   def parts = line.trim().split();
   def responseTime = parts[1]
   def factor = 1.0d;
-  if (responseTime.endsWith("ns"))
-  {
+  if (responseTime.endsWith("ns")) {
     responseTime = responseTime.substring(0, responseTime.length() - 2)
     factor = 0.000001d
   }
-  else if (responseTime.endsWith("us"))
-  {
+  else if (responseTime.endsWith("us")) {
     responseTime = responseTime.substring(0, responseTime.length() - 2)
     factor = 0.001d
   }
-  else if (responseTime.endsWith("ms"))
-  {
+  else if (responseTime.endsWith("ms")) {
     responseTime = responseTime.substring(0, responseTime.length() - 2)
     factor = 1.0d
   }
-  else if (responseTime.endsWith("s"))
-  {
+  else if (responseTime.endsWith("s")) {
     responseTime = responseTime.substring(0, responseTime.length() - 1)
     factor = 1000.0d
   }
-  else
-  {
+  else {
     throw new IllegalArgumentException("Cannot parse "+responseTime)
   }
   def time = Double.parseDouble(responseTime)
   return time * factor
 }
 
-def toTests(Map times)
-{
+def toTests(Map times) {
   def tests = [:]
   times.each{
       entry -> 

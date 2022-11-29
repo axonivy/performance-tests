@@ -18,7 +18,7 @@
 # Have a look at Monitor > Engine > Memory
 
 -Xms128m
--Xmx2g
+-Xmx8g
 
 #----------------------------------------------------------------
 
