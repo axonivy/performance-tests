@@ -96,8 +96,8 @@ def runPerformanceTests(String version) {
       runPerformanceTest(version, "rule", "performance/pro/Performance/172E670BBE4A3218/compileAndExecuteRule.ivp")
       runPerformanceTest(version, "logDebug", "performance/pro/Performance/17491D197ECC2DB6/logDebug.ivp")
       runPerformanceTest(version, "logError", "performance/pro/Performance/17491D197ECC2DB6/logErrors.ivp")
-      runPerformanceTest(version, "cms", "performance/pro/Performance/1791C5396913061C/readCms.ivp")
-      
+      runPerformanceTest(version, "readCmsString", "performance/pro/Performance/1791C5396913061C/readCmsString.ivp")
+      runPerformanceTest(version, "readCmsFile", "performance/pro/Performance/1791C5396913061C/readCmsFile.ivp")
       runOnce(version, "businessDataFill", "performance/pro/Performance/1848AB6ADCA8F207/fillBusinessData.ivp")      
       runPerformanceTest(version, "businessDataSearch", "performance/pro/Performance/1848AB6ADCA8F207/searchBusinessData.ivp")
       runPerformanceTest(version, "businessDataFind", "performance/pro/Performance/1848AB6ADCA8F207/findBusinessData.ivp")
