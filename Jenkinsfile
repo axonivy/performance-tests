@@ -101,6 +101,7 @@ def runPerformanceTests(String version) {
       runOnce(version, "businessDataFill", "performance/pro/Performance/1848AB6ADCA8F207/fillBusinessData.ivp")      
       runPerformanceTest(version, "businessDataSearch", "performance/pro/Performance/1848AB6ADCA8F207/searchBusinessData.ivp")
       runPerformanceTest(version, "businessDataFind", "performance/pro/Performance/1848AB6ADCA8F207/findBusinessData.ivp")
+      runPerformanceTest(version, "task", "performance/pro/Performance/184D1FD2D64C0ADB/task.ivp")
     }
   }
   finally {
