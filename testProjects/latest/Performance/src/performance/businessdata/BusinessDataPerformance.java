@@ -3,7 +3,7 @@ package performance.businessdata;
 import ch.ivyteam.di.restricted.DiCore;
 import ch.ivyteam.ivy.business.data.store.restricted.IBusinessDataManager;
 import ch.ivyteam.ivy.business.data.store.search.internal.BusinessDataSearchReindexer;
-import ch.ivyteam.ivy.business.data.store.search.internal.elasticsearch.JestIndex;
+import ch.ivyteam.ivy.elasticsearch.client.JestIndex;
 import ch.ivyteam.ivy.environment.Ivy;
 import ch.ivyteam.ivy.security.ISecurityContext;
 import performance.businessdata.model.Dossier;
