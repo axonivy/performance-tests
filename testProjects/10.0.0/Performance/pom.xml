@@ -17,7 +17,7 @@
         <version>${project.build.plugin.version}</version>
         <extensions>true</extensions>
         <configuration>
-          <ivyVersion>[10.0.0,]</ivyVersion>
+          <ivyVersion>[10.0.0,10.1.0]</ivyVersion>
           <engineListPageUrl>https://product.ivyteam.io/</engineListPageUrl>
         </configuration>
       </plugin>
