@@ -38,7 +38,7 @@ pipeline {
           prepareIvyContainer('10.0.0')
           prepareIvyContainer('10.0.x')
           prepareIvyContainer('10.0.n')
-          prepareIvyContainer('sprint')
+          //prepareIvyContainer('sprint')
           prepareIvyContainer('nightly')
         }
       }
@@ -55,7 +55,7 @@ pipeline {
           runPerformanceTests('8.0.x')
           runPerformanceTests('10.0.n')
           runPerformanceTests('10.0.x')
-          runPerformanceTests('sprint')
+          //runPerformanceTests('sprint')
 
           // static releases
           runPerformanceTests('8.0.0')
