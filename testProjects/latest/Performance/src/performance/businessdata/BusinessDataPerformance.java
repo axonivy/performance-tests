@@ -1,8 +1,7 @@
 package performance.businessdata;
 
-import ch.ivyteam.di.restricted.DiCore;
 import ch.ivyteam.ivy.business.data.store.restricted.IBusinessDataManager;
-import ch.ivyteam.ivy.business.data.store.search.internal.BusinessDataSearchReindexer;
+import ch.ivyteam.ivy.elasticsearch.IElasticsearchManager;
 import ch.ivyteam.ivy.elasticsearch.client.JestIndex;
 import ch.ivyteam.ivy.environment.Ivy;
 import ch.ivyteam.ivy.security.ISecurityContext;
@@ -24,8 +23,8 @@ public class BusinessDataPerformance {
         var dossier = RandomDossier.generate();
         repo.save(dossier);
       }
-      var indexName = IBusinessDataManager.instance().getBusinessDataIndex(ISecurityContext.current().getName(), Dossier.class);
-      DiCore.getGlobalInjector().getInstance(BusinessDataSearchReindexer.class).startSync(indexName);
+      var index = IBusinessDataManager.instance().getBusinessDataIndex(ISecurityContext.current().getName(), Dossier.class).index();
+      IElasticsearchManager.instance().reindex(index);
     } finally {
       JestIndex.enabled = true;
     }
