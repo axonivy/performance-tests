@@ -23,8 +23,8 @@ public class BusinessDataPerformance {
         var dossier = RandomDossier.generate();
         repo.save(dossier);
       }
-      var index = IBusinessDataManager.instance().getBusinessDataIndex(ISecurityContext.current().getName(), Dossier.class).index();
-      IElasticsearchManager.instance().reindex(index);
+      var index = IBusinessDataManager.instance().getBusinessDataIndex(ISecurityContext.current().getName(), Dossier.class);
+      IElasticsearchManager.instance().reindex(index.toIndexName());
     } finally {
       JestIndex.enabled = true;
     }
