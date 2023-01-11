@@ -29,9 +29,15 @@ public class BusinessDataPerformance {
       JestIndex.enabled = true;
     }
 
-    var results = repo.search(Dossier.class).limit(1).execute();
-    var info = results.getAllInfos().get(0);
-    ID_TO_READ = info.getId();
+    while (ID_TO_READ == null) {
+      var results = repo.search(Dossier.class)
+              .limit(1)
+              .execute()
+              .getAllInfos();
+      if (!results.isEmpty()) {
+        ID_TO_READ = results.get(0).getId();
+      }
+    }
   }
 
   public static void search() {
