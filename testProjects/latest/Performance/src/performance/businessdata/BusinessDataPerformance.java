@@ -2,7 +2,6 @@ package performance.businessdata;
 
 import ch.ivyteam.ivy.business.data.store.restricted.IBusinessDataManager;
 import ch.ivyteam.ivy.elasticsearch.IElasticsearchManager;
-import ch.ivyteam.ivy.elasticsearch.client.JestIndex;
 import ch.ivyteam.ivy.environment.Ivy;
 import ch.ivyteam.ivy.security.ISecurityContext;
 import performance.businessdata.model.Dossier;
@@ -16,17 +15,18 @@ public class BusinessDataPerformance {
 
   public static void fill() {
     var repo = Ivy.repo();
+    var es = IElasticsearchManager.instance();
 
-    JestIndex.enabled = false;
+    es.indexing(false);
     try {
       for (var i = 0; i < COUNT; i++) {
         var dossier = RandomDossier.generate();
         repo.save(dossier);
       }
       var index = IBusinessDataManager.instance().getBusinessDataIndex(ISecurityContext.current().getName(), Dossier.class);
-      IElasticsearchManager.instance().reindex(index.toIndexName());
+      es.reindex(index.toIndexName());
     } finally {
-      JestIndex.enabled = true;
+      es.indexing(true);
     }
 
     while (ID_TO_READ == null) {
