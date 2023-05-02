@@ -1,0 +1,6 @@
+Phone #class
+performance.task #namespace
+nr String #field
+nr PERSISTENT #fieldModifier
+description String #field
+description PERSISTENT #fieldModifier

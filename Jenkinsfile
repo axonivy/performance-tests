@@ -24,6 +24,9 @@ pipeline {
             maven cmd: 'clean verify -f testProjects/10.0.0/Performance/pom.xml'
           }
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/17/Dockerfile .').inside {
+            maven cmd: 'clean verify -f testProjects/11.1.0/Performance/pom.xml'
+          }
+          docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/17/Dockerfile .').inside {
             maven cmd: 'clean verify -f testProjects/latest/Performance/pom.xml'
           }
         }
@@ -40,6 +43,7 @@ pipeline {
           prepareIvyContainer('10.0.0')
           prepareIvyContainer('10.0.x')
           prepareIvyContainer('10.0.n')
+          prepareIvyContainer('11.1.n')
           prepareIvyContainer('dev')
         }
       }
@@ -56,6 +60,7 @@ pipeline {
           runPerformanceTests('8.0.x')
           runPerformanceTests('10.0.n')
           runPerformanceTests('10.0.x')
+          runPerformanceTests('11.1.n')
 
           // static releases
           runPerformanceTests('8.0.0')
