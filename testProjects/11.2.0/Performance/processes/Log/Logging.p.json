@@ -1,0 +1,84 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/11.2.2/process.json",
+  "id" : "17491D197ECC2DB6",
+  "config" : {
+    "data" : "performance.Data"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "logErrors.ivp",
+      "config" : {
+        "signature" : "logErrors"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "labelOffset" : { "x" : 22, "y" : 37 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "name" : "log errors",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import performance.log.LogGenerator;",
+            "LogGenerator.logErrors();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    }, {
+      "id" : "f5",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 344, "y" : 152 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "Script",
+      "name" : "log debugs",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import performance.log.LogGenerator;",
+            "LogGenerator.logDebugs();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 152 }
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f5" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "RequestStart",
+      "name" : "logDebug.ivp",
+      "config" : {
+        "signature" : "logDebug"
+      },
+      "visual" : {
+        "at" : { "x" : 88, "y" : 152 },
+        "labelOffset" : { "x" : 23, "y" : 37 }
+      },
+      "connect" : [
+        { "id" : "f9", "to" : "f6" }
+      ]
+    } ]
+}

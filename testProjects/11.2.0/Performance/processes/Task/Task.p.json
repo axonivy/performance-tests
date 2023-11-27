@@ -1,0 +1,90 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/11.2.2/process.json",
+  "id" : "184D1FD2D64C0ADB",
+  "config" : {
+    "data" : "performance.task.TaskData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "task.ivp",
+      "config" : {
+        "signature" : "task"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 448, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import performance.task.Address;",
+            "import performance.task.Phone;",
+            "import performance.task.Person;",
+            "",
+            "out.contact = new Person();",
+            "out.contact.name = \"Weiss\";",
+            "out.contact.surName = \"Reto\";",
+            "",
+            "Phone phone1 = new Phone();",
+            "phone1.description = \"Mobile\";",
+            "phone1.nr = \"+41797452494\";",
+            "Phone phone2 = new Phone();",
+            "phone2.description = \"Home\";",
+            "phone2.nr = \"+41418507373\";",
+            "out.contact.phones.add(phone1);",
+            "out.contact.phones.add(phone2);",
+            "",
+            "Address address1 = new Address();",
+            "address1.street = \"Grepperstrasse 45i\";",
+            "address1.zip = 6403;",
+            "address1.city = \"Küssnacht\";",
+            "address1.description = \"Home\";",
+            "",
+            "Address address2 = new Address();",
+            "address2.street = \"Baarerstrasse 12\";",
+            "address2.zip = 6300;",
+            "address2.city = \"Zug\";",
+            "address2.description = \"Work\";",
+            "",
+            "out.contact.addresses.add(address1);",
+            "out.contact.addresses.add(address2);",
+            "",
+            "out.customer = out.contact.deepClone();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f6", "to" : "f5" }
+      ]
+    }, {
+      "id" : "f5",
+      "type" : "TaskSwitchEvent",
+      "config" : {
+        "task" : {
+          "name" : "Test Task",
+          "skipTasklist" : true
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    } ]
+}

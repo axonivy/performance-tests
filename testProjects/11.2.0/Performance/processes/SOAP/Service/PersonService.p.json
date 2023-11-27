@@ -1,0 +1,79 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/11.2.2/process.json",
+  "id" : "17297D0F7635769C",
+  "kind" : "WEB_SERVICE",
+  "config" : {
+    "data" : "performance.rest.RestData",
+    "wsTypeName" : "performance.PersonService"
+  },
+  "elements" : [ {
+      "id" : "ws0",
+      "type" : "WebserviceStart",
+      "name" : "call()",
+      "config" : {
+        "signature" : "call",
+        "result" : {
+          "params" : [
+            { "name" : "persons", "type" : "List<performance.rest.service.Person>", "desc" : "" }
+          ],
+          "map" : {
+            "result.persons" : "in.persons"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "labelOffset" : { "x" : 10, "y" : 37 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    }, {
+      "id" : "ws1",
+      "type" : "WebserviceEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      }
+    }, {
+      "id" : "f1",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import java.util.UUID;",
+            "import performance.rest.service.Person;",
+            "",
+            "Person person = new Person();",
+            "person.FirstName=\"Bruno\";",
+            "person.LastName=\"Bütler\";",
+            "person.Id = UUID.randomUUID();",
+            "in.persons.add(person);",
+            "",
+            "person = new Person();",
+            "person.FirstName=\"Reto\";",
+            "person.LastName=\"Weiss\";",
+            "person.Id = UUID.randomUUID();",
+            "in.persons.add(person);",
+            "",
+            "person = new Person();",
+            "person.FirstName=\"Renato\";",
+            "person.LastName=\"Stalder\";",
+            "person.Id = UUID.randomUUID();",
+            "in.persons.add(person);",
+            "",
+            "person = new Person();",
+            "person.FirstName=\"Reguel\";",
+            "person.LastName=\"Wermelinger\";",
+            "person.Id = UUID.randomUUID();",
+            "in.persons.add(person);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f0", "to" : "ws1" }
+      ]
+    } ]
+}

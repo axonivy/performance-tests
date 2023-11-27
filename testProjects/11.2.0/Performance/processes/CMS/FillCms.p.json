@@ -1,0 +1,56 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/11.2.2/process.json",
+  "id" : "1791C53DC81E6D3E",
+  "config" : {
+    "data" : "performance.Data"
+  },
+  "elements" : [ {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import org.apache.commons.lang3.RandomStringUtils;",
+            "import org.apache.commons.lang3.StringUtils;",
+            "import ch.ivyteam.ivy.cm.IContentObjectValue;",
+            "import ch.ivyteam.ivy.cm.ContentObject;",
+            "import ch.ivyteam.ivy.cm.CoType;",
+            "import java.util.Locale;",
+            "",
+            "ContentObject labels = ivy.cms.root().child().folder(\"labels\");",
+            "for(int count = 0; count < 10000; count++) {",
+            "  ContentObject label = labels.child().string(\"label\" + count);",
+            "  String content = RandomStringUtils.randomAlphabetic(10, 100);",
+            "  label.value().get(Locale.ENGLISH).write().string(content);  ",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    }, {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "fillCms.ivp",
+      "config" : {
+        "signature" : "fillCms"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 37 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
+    } ]
+}
