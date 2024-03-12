@@ -86,37 +86,55 @@ def prepareIvyContainer(String version) {
 }
 
 def runPerformanceTests(String version) {
-  container = docker.image("ivy-$version:${env.BUILD_ID}").run()
+  mailContainer = docker.image("greenmail/standalone").run();
   try {
-    waitUntilIvyIsRunning(container)
-    docker.image("wrk:${env.BUILD_ID}").inside(" --link ${container.id}:ivy") {
-      echo "Going to test $version"
-      runPerformanceTest(version, "infoPage", "")
-      runPerformanceTest(version, "themeCss", "system/faces/javax.faces.resource/theme.css?ln=primefaces-serenity-ivy")
-      runPerformanceTest(version, "processEngineSimpleLoop", "performance/pro/Performance/17273CC5183C042A/start.ivp")
-      runPerformanceTest(version, "restElement", "performance/pro/Performance/17273D0D9D496ED8/element.ivp")
-      runPerformanceTest(version, "restApi", "performance/pro/Performance/17273D0D9D496ED8/api.ivp")
-      runPerformanceTest(version, "soapElement", "performance/pro/Performance/17297D7F72BCF2F9/element.ivp")
-      runPerformanceTest(version, "dbElement", "performance/pro/Performance/17297CB96C670B79/element.ivp")
-      runPerformanceTest(version, "rule", "performance/pro/Performance/172E670BBE4A3218/compileAndExecuteRule.ivp")
-      runPerformanceTest(version, "logDebug", "performance/pro/Performance/17491D197ECC2DB6/logDebug.ivp")
-      runPerformanceTest(version, "logError", "performance/pro/Performance/17491D197ECC2DB6/logErrors.ivp")
-      runPerformanceTest(version, "readCmsString", "performance/pro/Performance/1791C5396913061C/readCmsString.ivp")
-      runPerformanceTest(version, "readCmsFile", "performance/pro/Performance/1791C5396913061C/readCmsFile.ivp")
-      runOnce(version, "businessDataFill", "performance/pro/Performance/1848AB6ADCA8F207/fillBusinessData.ivp")      
-      runPerformanceTest(version, "businessDataSearch", "performance/pro/Performance/1848AB6ADCA8F207/searchBusinessData.ivp")
-      runPerformanceTest(version, "businessDataFind", "performance/pro/Performance/1848AB6ADCA8F207/findBusinessData.ivp")
-      runPerformanceTest(version, "task", "performance/pro/Performance/184D1FD2D64C0ADB/task.ivp")
+    ivyContainer = docker.image("ivy-$version:${env.BUILD_ID}").run(" --link ${mailContainer.id}:mail");
+    try {
+      waitUntilIvyIsRunning(ivyContainer)
+      docker.image("wrk:${env.BUILD_ID}").inside(" --link ${ivyContainer.id}:ivy") {
+        runPerformanceTestsInContainer(version);
+      }
+    } finally {
+      sh "docker logs ${ivyContainer.id} > logs/${version}.log"
+      if (!version.startsWith("8.0.0")) {
+        sh "docker stop ${ivyContainer.id}"
+        sh "docker cp ${ivyContainer.id}:/usr/lib/axonivy-engine/recording.jfr recordings/${version}.jfr"
+      }
+      ivyContainer.stop()
     }
+  } finally {
+    mailContainer.stop();
   }
-  finally {
-    sh "docker logs ${container.id} > logs/${version}.log"
-    if (!version.startsWith("8.0.0")) {
-      sh "docker stop ${container.id}"
-      sh "docker cp ${container.id}:/usr/lib/axonivy-engine/recording.jfr recordings/${version}.jfr"
-    }
-    container.stop()
+}
+
+def runPerformanceTestsInContainer(String version) {
+  echo "Going to test $version"
+  runPerformanceTest(version, "infoPage", "")
+  runPerformanceTest(version, "themeCss", "system/faces/javax.faces.resource/theme.css?ln=primefaces-serenity-ivy")
+  runPerformanceTest(version, "processEngineSimpleLoop", "performance/pro/Performance/17273CC5183C042A/start.ivp")
+  runPerformanceTest(version, "restElement", "performance/pro/Performance/17273D0D9D496ED8/element.ivp")
+  runPerformanceTest(version, "restApi", "performance/pro/Performance/17273D0D9D496ED8/api.ivp")
+  runPerformanceTest(version, "soapElement", "performance/pro/Performance/17297D7F72BCF2F9/element.ivp")
+  runPerformanceTest(version, "dbElement", "performance/pro/Performance/17297CB96C670B79/element.ivp")
+  runPerformanceTest(version, "rule", "performance/pro/Performance/172E670BBE4A3218/compileAndExecuteRule.ivp")
+  runPerformanceTest(version, "logDebug", "performance/pro/Performance/17491D197ECC2DB6/logDebug.ivp")
+  runPerformanceTest(version, "logError", "performance/pro/Performance/17491D197ECC2DB6/logErrors.ivp")
+  runPerformanceTest(version, "readCmsString", "performance/pro/Performance/1791C5396913061C/readCmsString.ivp")
+  runPerformanceTest(version, "readCmsFile", "performance/pro/Performance/1791C5396913061C/readCmsFile.ivp")
+  runOnce(version, "businessDataFill", "performance/pro/Performance/1848AB6ADCA8F207/fillBusinessData.ivp")      
+  runPerformanceTest(version, "businessDataSearch", "performance/pro/Performance/1848AB6ADCA8F207/searchBusinessData.ivp")
+  runPerformanceTest(version, "businessDataFind", "performance/pro/Performance/1848AB6ADCA8F207/findBusinessData.ivp")
+  runPerformanceTest(version, "task", "performance/pro/Performance/184D1FD2D64C0ADB/task.ivp")
+  if (supportsNotification(version)) {
+    runOnce(version, "notification before", "performance/pro/Performance/18E2CF64C4D238CB/before.ivp")
+    runPerformanceTest(version, "notificationTask", "performance/pro/Performance/18E2CF2431E9C990/task.ivp")
+    runPerformanceTest(version, "notificationRender", "performance/pro/Performance/18E2D005A95C1C56/render.ivp")
+    runOnce(version, "notification after", "performance/pro/Performance/18E2CF64C4D238CB/after.ivp")
   }
+}
+
+def supportsNotification(String version) {
+  return version.equals("dev");
 }
 
 def waitUntilIvyIsRunning(def container) {

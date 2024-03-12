@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/11.3.9/ivy.json
+#
+# -------------------------------------------
+# Axon Ivy Engine Configuration
+# -------------------------------------------
+#
+# This file customizes the configuration of the Axon Ivy Engine and its external systems.
+# Defaults are documented in the template directory configuration/defaults/
+# - ivy.yaml > https://developer.axonivy.com/doc/11.3/engine-guide/configuration/files/ivy-yaml.html
+# - ivy.webserver.yaml > https://developer.axonivy.com/doc/11.3/engine-guide/configuration/files/ivy-webserver-yaml.html
+#
+SecuritySystems:
+  default:
+    Notification:
+      Channels:
+        mail:
+          Enabled: true
+EMail:
+  Server:
+    Host: mail
+    Port: 3025

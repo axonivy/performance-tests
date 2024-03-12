@@ -1,13 +1,13 @@
 version: '3.5'
 services:
-  ivy-nightly:
+  ivy-dev:
     build: 
       context: .
-      dockerfile: docker/ivy/nightly/Dockerfile
+      dockerfile: docker/ivy/dev/Dockerfile
 
 # to get external access uncomment the following lines   
-#  ports: 
-#  - 8080:8080
+#    ports: 
+#    - 8080:8080
 
   ivy-sprint:
     build: 
@@ -51,5 +51,8 @@ services:
     command: /bin/sh
     tty: true
     stdin_open: true
+
+  mail:
+    image: greenmail/standalone
     
     
