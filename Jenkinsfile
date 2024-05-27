@@ -134,7 +134,7 @@ def runPerformanceTestsInContainer(String version) {
 }
 
 def supportsNotification(String version) {
-  return version.equals("dev");
+  return version.equals("dev") || version.equals("11.3.n");
 }
 
 def waitUntilIvyIsRunning(def container) {
