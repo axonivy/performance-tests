@@ -1,0 +1,93 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/11.2.2/process.json",
+  "id" : "18E2CF64C4D238CB",
+  "config" : {
+    "data" : "performance.Data"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "before",
+      "config" : {
+        "signature" : "before"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 360, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "name" : "Create Users",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import ch.ivyteam.ivy.security.IUser;",
+            "for (int u = 0; u < 1000; u++) {",
+            "  IUser user = ivy.security.users().create(\"User\"+u);",
+            "  user.setEMailAddress(user.getName()+\"@axonivy.test\");",
+            "}"
+          ]
+        },
+        "sudo" : true
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f5", "to" : "f1" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "RequestStart",
+      "name" : "after",
+      "config" : {
+        "signature" : "after"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 168 }
+      },
+      "connect" : [
+        { "id" : "f9", "to" : "f8" }
+      ]
+    }, {
+      "id" : "f8",
+      "type" : "Script",
+      "name" : "Delete users",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import ch.ivyteam.ivy.security.IUser;",
+            "for (IUser user : ivy.security.users().paged()) {",
+            "  if (user.getName().startsWith(\"User\")) {",
+            "    ivy.security.users().delete(user.getName());",
+            "  }",
+            "}"
+          ]
+        },
+        "sudo" : true
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 168 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f12" }
+      ]
+    }, {
+      "id" : "f12",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 360, "y" : 168 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    } ]
+}

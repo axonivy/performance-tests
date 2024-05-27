@@ -23,10 +23,9 @@ pipeline {
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/17/Dockerfile .').inside {
             maven cmd: 'clean verify -f testProjects/10.0.0/Performance/pom.xml'
           }
-          // enable again for next LE 11.3 release
-          // docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/17/Dockerfile .').inside {
-          //   maven cmd: 'clean verify -f testProjects/11.2.0/Performance/pom.xml'
-          // }
+          docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/17/Dockerfile .').inside {
+             maven cmd: 'clean verify -f testProjects/11.3.0/Performance/pom.xml'
+           }
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/17/Dockerfile .').inside {
             maven cmd: 'clean verify -f testProjects/latest/Performance/pom.xml'
           }
@@ -44,8 +43,7 @@ pipeline {
           prepareIvyContainer('10.0.0')
           prepareIvyContainer('10.0.x')
           prepareIvyContainer('10.0.n')
-          // enable again for next LE 11.3 release
-          // prepareIvyContainer('11.2.n')
+          prepareIvyContainer('11.3.n')
           prepareIvyContainer('dev')
         }
       }
@@ -62,8 +60,7 @@ pipeline {
           runPerformanceTests('8.0.x')
           runPerformanceTests('10.0.n')
           runPerformanceTests('10.0.x')
-          // enable again for next LE 11.3 release
-          // runPerformanceTests('11.2.n')
+          runPerformanceTests('11.3.n')
 
           // static releases
           runPerformanceTests('8.0.0')
@@ -137,7 +134,7 @@ def runPerformanceTestsInContainer(String version) {
 }
 
 def supportsNotification(String version) {
-  return version.equals("dev");
+  return version.equals("dev") || version.equals("11.3.n");
 }
 
 def waitUntilIvyIsRunning(def container) {
