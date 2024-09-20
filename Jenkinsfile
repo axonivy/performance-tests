@@ -23,8 +23,8 @@ pipeline {
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/17/Dockerfile .').inside {
             maven cmd: 'clean verify -f testProjects/10.0.0/Performance/pom.xml'
           }
-          docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/17/Dockerfile .').inside {
-             maven cmd: 'clean verify -f testProjects/11.3.0/Performance/pom.xml'
+          docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/21/Dockerfile .').inside {
+             maven cmd: 'clean verify -f testProjects/12.0.0/Performance/pom.xml'
            }
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/21/Dockerfile .').inside {
             maven cmd: 'clean verify -f testProjects/latest/Performance/pom.xml'
@@ -43,7 +43,7 @@ pipeline {
           prepareIvyContainer('10.0.0')
           prepareIvyContainer('10.0.x')
           prepareIvyContainer('10.0.n')
-          prepareIvyContainer('11.3.n')
+          prepareIvyContainer('12.0.n')
           prepareIvyContainer('dev')
         }
       }
@@ -60,7 +60,7 @@ pipeline {
           runPerformanceTests('8.0.x')
           runPerformanceTests('10.0.n')
           runPerformanceTests('10.0.x')
-          runPerformanceTests('11.3.n')
+          runPerformanceTests('12.0.n')
 
           // static releases
           runPerformanceTests('8.0.0')
@@ -138,7 +138,7 @@ def runPerformanceTestsInContainer(String version) {
 }
 
 def supportsNotification(String version) {
-  return version.equals("dev") || version.equals("11.3.n");
+  return version.equals("dev") || version.equals("12.0.n");
 }
 
 def waitUntilIvyIsRunning(def container) {
