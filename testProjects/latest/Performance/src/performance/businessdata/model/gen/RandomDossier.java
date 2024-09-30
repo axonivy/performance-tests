@@ -41,7 +41,7 @@ public class RandomDossier {
     copy.address = benifician.address;
     copy.contact = Contacts.createRandom();
 
-    for (int i = 0; i < RandomUtils.nextInt(0, 3); i++) {
+    for (int i = 0; i < RandomUtils.secure().randomInt(0, 3); i++) {
       Legitimate random = new Legitimate();
       random.person = randomPerson();
       random.address = Addresses.getRandom();
@@ -60,13 +60,13 @@ public class RandomDossier {
     ControllingPerson copied = new ControllingPerson();
     copied.person = benifician.person;
     copied.address = benifician.address;
-    copied.share = RandomUtils.nextInt(0, 100);
+    copied.share = RandomUtils.secure().randomInt(0, 100);
 
-    for (int i = 0; i < RandomUtils.nextInt(0, 2); i++) {
+    for (int i = 0; i < RandomUtils.secure().randomInt(0, 2); i++) {
       ControllingPerson random = new ControllingPerson();
       random.person = randomPerson();
       random.address = Addresses.getRandom();
-      random.share = RandomUtils.nextInt(0, 100);
+      random.share = RandomUtils.secure().randomInt(0, 100);
       mgmt.controllingPersons.add(random);
     }
 
@@ -79,7 +79,7 @@ public class RandomDossier {
       return null;
     }
     List<T> listified = new ArrayList<>(entities);
-    int entry = RandomUtils.nextInt(0, entities.size());
+    int entry = RandomUtils.secure().randomInt(0, entities.size());
     return listified.get(entry);
   }
 
@@ -90,8 +90,8 @@ public class RandomDossier {
     holder.type = randomType();
     holder.dateOfRegistry = randomDate();
     holder.dateOfSupply = randomDate();
-    holder.yearOfIncorporation = RandomUtils.nextInt(1900, 2016);
-    holder.numberOfEmployees = RandomUtils.nextInt(1, 100_000);
+    holder.yearOfIncorporation = RandomUtils.secure().randomInt(1900, 2016);
+    holder.numberOfEmployees = RandomUtils.secure().randomInt(1, 100_000);
     holder.contactPerson = Names.randomFullName();
     holder.domicileCountryControllingPerson = Names.randomFullName();
     holder.address = Addresses.getRandom();
@@ -102,7 +102,7 @@ public class RandomDossier {
 
   private static Set<BeneficialOwner> createBeneficialOwners(Dossier dossier) {
     Set<BeneficialOwner> benificial = new HashSet<>();
-    for (int i = 0; i < RandomUtils.nextInt(2, 5); i++) {
+    for (int i = 0; i < RandomUtils.secure().randomInt(2, 5); i++) {
       benificial.add(createBeneficialOwner(dossier));
     }
     return benificial;
@@ -125,15 +125,15 @@ public class RandomDossier {
   }
 
   private static AhType randomType() {
-    return AhType.values()[RandomUtils.nextInt(0, AhType.values().length)];
+    return AhType.values()[RandomUtils.secure().randomInt(0, AhType.values().length)];
   }
 
   public static boolean randomBoolean() {
-    return RandomUtils.nextInt(0, 2) == 0;
+    return RandomUtils.secure().randomInt(0, 2) == 0;
   }
 
   public static Date randomDate() {
     long currentTimeMillis = System.currentTimeMillis();
-    return new Date(Math.abs(currentTimeMillis - RandomUtils.nextLong(0, currentTimeMillis)));
+    return new Date(Math.abs(currentTimeMillis - RandomUtils.secure().randomLong(0, currentTimeMillis)));
   }
 }

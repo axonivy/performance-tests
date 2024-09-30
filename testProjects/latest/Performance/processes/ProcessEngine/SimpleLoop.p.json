@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.26/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.3.0/process.json",
   "id" : "17273CC5183C042A",
   "config" : {
     "data" : "performance.SimpleLoop"
@@ -32,11 +32,16 @@
     }, {
       "id" : "f3",
       "type" : "Alternative",
+      "config" : {
+        "conditions" : {
+          "f2" : "in.counter <= 0"
+        }
+      },
       "visual" : {
         "at" : { "x" : 352, "y" : 96 }
       },
       "connect" : [
-        { "id" : "f2", "to" : "f1", "condition" : "in.counter <= 0" },
+        { "id" : "f2", "to" : "f1" },
         { "id" : "f7", "to" : "f5", "via" : [ { "x" : 352, "y" : 48 }, { "x" : 224, "y" : 48 } ] }
       ]
     }, {

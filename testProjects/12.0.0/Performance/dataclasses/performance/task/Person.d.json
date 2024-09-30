@@ -1,0 +1,23 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/11.4.0/data-class.json",
+  "simpleName" : "Person",
+  "namespace" : "performance.task",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "name",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "surname",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "addresses",
+    "type" : "List<performance.task.Address>",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "phones",
+    "type" : "List<performance.task.Phone>",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}

@@ -12,7 +12,7 @@ public class Names
   public static String randomTitle()
   {
     List<String> titles = Arrays.asList("MR", "MS", "DR");
-    return titles.get(RandomUtils.nextInt(0, titles.size()));
+    return titles.get(RandomUtils.secure().randomInt(0, titles.size()));
   }
 
   public static String randomFullName()

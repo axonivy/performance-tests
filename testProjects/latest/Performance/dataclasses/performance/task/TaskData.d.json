@@ -1,0 +1,15 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/11.4.0/data-class.json",
+  "simpleName" : "TaskData",
+  "namespace" : "performance.task",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "customer",
+    "type" : "performance.task.Person",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "contact",
+    "type" : "performance.task.Person",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}
