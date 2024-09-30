@@ -1,8 +1,8 @@
 package performance.businessdata;
 
 import ch.ivyteam.ivy.business.data.store.restricted.IBusinessDataManager;
-import ch.ivyteam.ivy.elasticsearch.IElasticsearchManager;
 import ch.ivyteam.ivy.environment.Ivy;
+import ch.ivyteam.ivy.searchengine.ISearchEngineManager;
 import ch.ivyteam.ivy.security.ISecurityContext;
 import performance.businessdata.model.Dossier;
 import performance.businessdata.model.gen.RandomDossier;
@@ -15,7 +15,7 @@ public class BusinessDataPerformance {
 
   public static void fill() {
     var repo = Ivy.repo();
-    var es = IElasticsearchManager.instance();
+    var es = ISearchEngineManager.instance();
 
     es.indexing(false);
     try {

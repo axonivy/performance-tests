@@ -16,11 +16,11 @@ public class Contacts {
   }
 
   public static String randomMail() {
-    return RandomStringUtils.random(1, true, false) + "." + Names.getRandomLastname() + "@"
-            + RandomStringUtils.random(5, true, false) + ".com";
+    return RandomStringUtils.secure().next(1, true, false) + "." + Names.getRandomLastname() + "@"
+            + RandomStringUtils.secure().next(5, true, false) + ".com";
   }
 
   public static String randomPhone() {
-    return RandomStringUtils.random(12, false, true);
+    return RandomStringUtils.secure().next(12, false, true);
   }
 }
