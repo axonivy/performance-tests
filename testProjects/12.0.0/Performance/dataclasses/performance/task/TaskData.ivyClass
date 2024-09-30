@@ -1,6 +1,0 @@
-TaskData #class
-performance.task #namespace
-customer performance.task.Person #field
-customer PERSISTENT #fieldModifier
-contact performance.task.Person #field
-contact PERSISTENT #fieldModifier
