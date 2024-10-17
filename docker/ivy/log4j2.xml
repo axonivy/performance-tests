@@ -1,6 +1,6 @@
 <Configuration status="warn">
   <Appenders>
-    <RollingRandomAccessFile name="ErrorLog" fileName="logs/error.log" filePattern="logs/error-%d{MM-dd-yyyy}.log.gz" ignoreExceptions="false">
+    <RollingRandomAccessFile name="ErrorLog" fileName="logs/error.log" filePattern="logs/error-%d{yyyy-MM-dd}.log.gz" ignoreExceptions="false">
       <PatternLayout pattern="${pattern}" />
       <TimeBasedTriggeringPolicy />
     </RollingRandomAccessFile>
