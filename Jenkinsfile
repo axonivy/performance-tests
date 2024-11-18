@@ -55,7 +55,7 @@ pipeline {
           sh "rm -rf results && rm -rf logs && rm -rf recordings && mkdir -p results && mkdir -p logs && mkdir -p recordings"
           
           // frequently updated:
-          runPerformanceTests('dev')
+          // runPerformanceTests('dev')
           runPerformanceTests('8.0.n')
           runPerformanceTests('8.0.x')
           runPerformanceTests('10.0.n')
