@@ -18,7 +18,7 @@
         <extensions>true</extensions>
         <configuration>
           <ivyVersion>[11.4.0,]</ivyVersion>
-          <engineListPageUrl>https://jenkins.ivyteam.io/job/core_product/job/master/lastSuccessfulBuild/</engineListPageUrl>
+          <engineListPageUrl>https://jenkins.ivyteam.io/job/core_product/job/release%252F12.0/lastSuccessfulBuild/</engineListPageUrl>
         </configuration>
       </plugin>
     </plugins>
