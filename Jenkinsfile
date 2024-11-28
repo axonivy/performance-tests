@@ -37,14 +37,15 @@ pipeline {
       steps {
         script {
           docker.build("wrk:${env.BUILD_ID}", '-f docker/wrk/Dockerfile .')
-          prepareIvyContainer('8.0.0')
           prepareIvyContainer('8.0.x')
           prepareIvyContainer('8.0.n')
           prepareIvyContainer('10.0.0')
           prepareIvyContainer('10.0.x')
           prepareIvyContainer('10.0.n')
+          prepareIvyContainer('12.0.0')
+          prepareIvyContainer('12.0.x')
           prepareIvyContainer('12.0.n')
-          prepareIvyContainer('dev')
+          // prepareIvyContainer('dev')
         }
       }
     }
