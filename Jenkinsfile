@@ -100,7 +100,7 @@ def runPerformanceTests(String version) {
       sh "docker logs ${ivyContainer.id} > logs/${version}.log"
       if (!version.startsWith("8.0.0")) {
         sh "docker stop ${ivyContainer.id}"
-        if (version.equals("dev") || version.equals("12.0.n")) {
+        if (version.equals("dev") || version.startsWith("12.0.")) {
           sh "docker cp ${ivyContainer.id}:/ivy/recording.jfr recordings/${version}.jfr"
         } else {
           sh "docker cp ${ivyContainer.id}:/usr/lib/axonivy-engine/recording.jfr recordings/${version}.jfr"
