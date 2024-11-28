@@ -61,10 +61,11 @@ pipeline {
           runPerformanceTests('10.0.n')
           runPerformanceTests('10.0.x')
           runPerformanceTests('12.0.n')
+          runPerformanceTests('12.0.x')
 
           // static releases
-          runPerformanceTests('8.0.0')
           runPerformanceTests('10.0.0')
+          runPerformanceTests('12.0.0')
         }
       }
     }
@@ -138,7 +139,7 @@ def runPerformanceTestsInContainer(String version) {
 }
 
 def supportsNotification(String version) {
-  return version.equals("dev") || version.equals("12.0.n");
+  return version.equals("dev") || version.startsWith("12.0.");
 }
 
 def waitUntilIvyIsRunning(def container) {
