@@ -37,14 +37,15 @@ pipeline {
       steps {
         script {
           docker.build("wrk:${env.BUILD_ID}", '-f docker/wrk/Dockerfile .')
-          prepareIvyContainer('8.0.0')
           prepareIvyContainer('8.0.x')
           prepareIvyContainer('8.0.n')
           prepareIvyContainer('10.0.0')
           prepareIvyContainer('10.0.x')
           prepareIvyContainer('10.0.n')
+          prepareIvyContainer('12.0.0')
+          prepareIvyContainer('12.0.x')
           prepareIvyContainer('12.0.n')
-          prepareIvyContainer('dev')
+          // prepareIvyContainer('dev')
         }
       }
     }
@@ -61,10 +62,11 @@ pipeline {
           runPerformanceTests('10.0.n')
           runPerformanceTests('10.0.x')
           runPerformanceTests('12.0.n')
+          runPerformanceTests('12.0.x')
 
           // static releases
-          runPerformanceTests('8.0.0')
           runPerformanceTests('10.0.0')
+          runPerformanceTests('12.0.0')
         }
       }
     }
@@ -98,7 +100,7 @@ def runPerformanceTests(String version) {
       sh "docker logs ${ivyContainer.id} > logs/${version}.log"
       if (!version.startsWith("8.0.0")) {
         sh "docker stop ${ivyContainer.id}"
-        if (version.equals("dev") || version.equals("12.0.n")) {
+        if (version.equals("dev") || version.startsWith("12.0.")) {
           sh "docker cp ${ivyContainer.id}:/ivy/recording.jfr recordings/${version}.jfr"
         } else {
           sh "docker cp ${ivyContainer.id}:/usr/lib/axonivy-engine/recording.jfr recordings/${version}.jfr"
@@ -138,7 +140,7 @@ def runPerformanceTestsInContainer(String version) {
 }
 
 def supportsNotification(String version) {
-  return version.equals("dev") || version.equals("12.0.n");
+  return version.equals("dev") || version.startsWith("12.0.");
 }
 
 def waitUntilIvyIsRunning(def container) {
