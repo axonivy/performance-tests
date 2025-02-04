@@ -16,10 +16,7 @@ pipeline {
   stages {
     stage('build-test-projects') {
       steps  {
-        script {
-          docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/11/Dockerfile .').inside {
-            maven cmd: 'clean verify -f testProjects/8.0.0/Performance/pom.xml'
-          }
+        script {          
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/17/Dockerfile .').inside {
             maven cmd: 'clean verify -f testProjects/10.0.0/Performance/pom.xml'
           }
@@ -36,9 +33,7 @@ pipeline {
     stage('build-containers') {
       steps {
         script {
-          docker.build("wrk:${env.BUILD_ID}", '-f docker/wrk/Dockerfile .')
-          prepareIvyContainer('8.0.x')
-          prepareIvyContainer('8.0.n')
+          docker.build("wrk:${env.BUILD_ID}", '-f docker/wrk/Dockerfile .')          
           prepareIvyContainer('10.0.0')
           prepareIvyContainer('10.0.x')
           prepareIvyContainer('10.0.n')
@@ -57,8 +52,6 @@ pipeline {
           
           // frequently updated:
           // runPerformanceTests('dev')
-          runPerformanceTests('8.0.n')
-          runPerformanceTests('8.0.x')
           runPerformanceTests('10.0.n')
           runPerformanceTests('10.0.x')
           runPerformanceTests('12.0.n')
@@ -97,15 +90,13 @@ def runPerformanceTests(String version) {
         runPerformanceTestsInContainer(version);
       }
     } finally {
-      sh "docker logs ${ivyContainer.id} > logs/${version}.log"
-      if (!version.startsWith("8.0.0")) {
-        sh "docker stop ${ivyContainer.id}"
-        if (version.equals("dev") || version.startsWith("12.0.")) {
-          sh "docker cp ${ivyContainer.id}:/ivy/recording.jfr recordings/${version}.jfr"
-        } else {
-          sh "docker cp ${ivyContainer.id}:/usr/lib/axonivy-engine/recording.jfr recordings/${version}.jfr"
-        }
-      }
+      sh "docker logs ${ivyContainer.id} > logs/${version}.log"      
+      sh "docker stop ${ivyContainer.id}"
+      if (version.equals("dev") || version.startsWith("12.0.")) {
+        sh "docker cp ${ivyContainer.id}:/ivy/recording.jfr recordings/${version}.jfr"
+      } else {
+        sh "docker cp ${ivyContainer.id}:/usr/lib/axonivy-engine/recording.jfr recordings/${version}.jfr"
+      }      
       ivyContainer.stop()
     }
   } finally {
@@ -194,17 +185,6 @@ def adjustUrlToVersion(String version, String url) {
       url = "pro/"+url;
     }
   }
-  if (version.startsWith("8.")) {
-    baseUrl += "ivy/";
-    if (url.contains("system/faces/javax.faces.resource/")) {
-      url = url.replace("system/faces/javax.faces.resource/", "sys/javax.faces.resource/");
-    }
-    if (url.contains("/pro/")) {
-      url = url.replace("/pro/", "/")
-      url = url.capitalize()
-      url = "pro/"+url;
-    }
-  }
   return baseUrl + url;
 }
 
@@ -212,36 +192,9 @@ def checkErrors() {
   try {
     def result = sh(returnStdout: true, script: "#!/bin/sh\n" + "grep -l 'Non-2xx' results/*.wrk").trim()
     result = result.replace("\n", ", ")
-    def errors = result.split(", ");
-    if (isUnstable(errors)) {
-	    unstable "There are errors in: "+result
-    }
+    unstable "There are errors in: "+result    
   } catch(exe) {
   }
-}
-
-def isUnstable(String[] errors) {
-  for (def error : errors) {
-    if (!knownIssue(error)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-def knownIssue(String error) {
-  def blacklist = ["results/7.2.0_soapElement.wrk", 
-                   "results/8.0.0_soapElement.wrk", 
-                   "results/8.0.x_soapElement.wrk", 
-                   "results/9.1.0_soapElement.wrk", 
-                   "results/sprint_soapElement.wrk"]
-
-  for (def black : blacklist) {
-    if (black.equals(error)) {
-      return true;
-    }
-  }
-  return false;
 }
 
 def createCsvReports() {

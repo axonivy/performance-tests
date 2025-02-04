@@ -1,6 +1,0 @@
-SoapData #class
-performance.soap #namespace
-persons List<performance.client.Person> #field
-persons PERSISTENT #fieldModifier
-context performance.soap.ServiceContext #field
-context PERSISTENT #fieldModifier
