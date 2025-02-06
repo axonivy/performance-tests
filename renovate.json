@@ -3,6 +3,7 @@
   "extends": [
     "local>axonivy/renovate-config"
   ],
+  "additionalBranchPrefix": "{{parentDir}}-",
   "packageRules": [
     {
       "description": "Disable updates for Axon Ivy Engine Image. We want to explicitly want to have older version for comparison of performance.",
