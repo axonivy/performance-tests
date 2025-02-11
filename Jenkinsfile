@@ -107,7 +107,7 @@ def runPerformanceTests(String version) {
 def runPerformanceTestsInContainer(String version) {
   echo "Going to test $version"
   runPerformanceTest(version, "infoPage", "")
-  runPerformanceTest(version, "themeCss", "system/faces/javax.faces.resource/theme.css?ln=primefaces-serenity-ivy")
+  runPerformanceTest(version, "themeCss", "system/faces/javax.faces.resource/theme.css?ln=primefaces-freya-ivy-light")
   runPerformanceTest(version, "processEngineSimpleLoop", "performance/pro/Performance/17273CC5183C042A/start.ivp")
   runPerformanceTest(version, "restElement", "performance/pro/Performance/17273D0D9D496ED8/element.ivp")
   runPerformanceTest(version, "restApi", "performance/pro/Performance/17273D0D9D496ED8/api.ivp")
