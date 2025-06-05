@@ -16,13 +16,16 @@ pipeline {
   stages {
     stage('build-test-projects') {
       steps  {
-        script {          
+        script {
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/17/Dockerfile .').inside {
             maven cmd: 'clean verify -f testProjects/10.0.0/Performance/pom.xml'
           }
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/21/Dockerfile .').inside {
-             maven cmd: 'clean verify -f testProjects/12.0.0/Performance/pom.xml'
-           }
+            maven cmd: 'clean verify -f testProjects/12.0.0/Performance/pom.xml'
+          }
+          docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/21/Dockerfile .').inside {
+            maven cmd: 'clean verify -f testProjects/13.1.0/Performance/pom.xml'
+          }
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/21/Dockerfile .').inside {
             maven cmd: 'clean verify -f testProjects/latest/Performance/pom.xml'
           }
@@ -33,14 +36,15 @@ pipeline {
     stage('build-containers') {
       steps {
         script {
-          docker.build("wrk:${env.BUILD_ID}", '-f docker/wrk/Dockerfile .')          
+          docker.build("wrk:${env.BUILD_ID}", '-f docker/wrk/Dockerfile .')
           prepareIvyContainer('10.0.0')
           prepareIvyContainer('10.0.x')
           prepareIvyContainer('10.0.n')
           prepareIvyContainer('12.0.0')
           prepareIvyContainer('12.0.x')
           prepareIvyContainer('12.0.n')
-          // prepareIvyContainer('dev')
+          prepareIvyContainer('13.1.n')
+          prepareIvyContainer('dev')
         }
       }
     }
@@ -51,11 +55,12 @@ pipeline {
           sh "rm -rf results && rm -rf logs && rm -rf recordings && mkdir -p results && mkdir -p logs && mkdir -p recordings"
           
           // frequently updated:
-          // runPerformanceTests('dev')
+          runPerformanceTests('dev')
           runPerformanceTests('10.0.n')
           runPerformanceTests('10.0.x')
           runPerformanceTests('12.0.n')
           runPerformanceTests('12.0.x')
+          runPerformanceTests('13.1.n')
 
           // static releases
           runPerformanceTests('10.0.0')
@@ -90,9 +95,9 @@ def runPerformanceTests(String version) {
         runPerformanceTestsInContainer(version);
       }
     } finally {
-      sh "docker logs ${ivyContainer.id} > logs/${version}.log"      
+      sh "docker logs ${ivyContainer.id} > logs/${version}.log"
       sh "docker stop ${ivyContainer.id}"
-      if (version.equals("dev") || version.startsWith("12.0.")) {
+      if (version.equals("dev") || version.startsWith("13.") || version.startsWith("12.0.")) {
         sh "docker cp ${ivyContainer.id}:/ivy/recording.jfr recordings/${version}.jfr"
       } else {
         sh "docker cp ${ivyContainer.id}:/usr/lib/axonivy-engine/recording.jfr recordings/${version}.jfr"
@@ -131,7 +136,7 @@ def runPerformanceTestsInContainer(String version) {
 }
 
 def supportsNotification(String version) {
-  return version.equals("dev") || version.startsWith("12.0.");
+  return version.equals("dev") || version.startsWith("13.") || version.startsWith("12.0.");
 }
 
 def waitUntilIvyIsRunning(def container) {
@@ -192,7 +197,7 @@ def checkErrors() {
   try {
     def result = sh(returnStdout: true, script: "#!/bin/sh\n" + "grep -l 'Non-2xx' results/*.wrk").trim()
     result = result.replace("\n", ", ")
-    unstable "There are errors in: "+result    
+    unstable "There are errors in: "+result
   } catch(exe) {
   }
 }
