@@ -44,7 +44,7 @@ pipeline {
           prepareIvyContainer('12.0.x')
           prepareIvyContainer('12.0.n')
           prepareIvyContainer('13.1.n')
-          // prepareIvyContainer('dev')
+          prepareIvyContainer('dev')
         }
       }
     }
@@ -55,7 +55,7 @@ pipeline {
           sh "rm -rf results && rm -rf logs && rm -rf recordings && mkdir -p results && mkdir -p logs && mkdir -p recordings"
           
           // frequently updated:
-          // runPerformanceTests('dev')
+          runPerformanceTests('dev')
           runPerformanceTests('10.0.n')
           runPerformanceTests('10.0.x')
           runPerformanceTests('12.0.n')
