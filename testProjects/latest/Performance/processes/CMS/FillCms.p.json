@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.3.0/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/13.1.2/process.json",
   "id" : "1791C53DC81E6D3E",
   "config" : {
     "data" : "performance.Data"
@@ -18,15 +18,13 @@
           "code" : [
             "import org.apache.commons.lang3.RandomStringUtils;",
             "import org.apache.commons.lang3.StringUtils;",
-            "import ch.ivyteam.ivy.cm.IContentObjectValue;",
             "import ch.ivyteam.ivy.cm.ContentObject;",
-            "import ch.ivyteam.ivy.cm.CoType;",
             "import java.util.Locale;",
             "",
             "ContentObject labels = ivy.cms.root().child().folder(\"labels\");",
             "for(int count = 0; count < 10000; count++) {",
             "  ContentObject label = labels.child().string(\"label\" + count);",
-            "  String content = RandomStringUtils.randomAlphabetic(10, 100);",
+            "  String content = RandomStringUtils.insecure().nextAlphabetic(10, 100);",
             "  label.value().get(Locale.ENGLISH).write().string(content);  ",
             "}"
           ]
