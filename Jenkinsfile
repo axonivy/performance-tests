@@ -88,7 +88,7 @@ def prepareIvyContainer(String version) {
 def runPerformanceTests(String version) {
   mailContainer = docker.image("greenmail/standalone").run();
   try {
-    ivyContainer = docker.image("ivy-$version:${env.BUILD_ID}").run(" --link ${mailContainer.id}:mail");
+    def ivyContainer = docker.image("ivy-$version:${env.BUILD_ID}").run(" --link ${mailContainer.id}:mail");
     try {
       waitUntilIvyIsRunning(ivyContainer)
       docker.image("wrk:${env.BUILD_ID}").inside(" --link ${ivyContainer.id}:ivy") {
