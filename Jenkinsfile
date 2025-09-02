@@ -174,7 +174,7 @@ def test(String url, String resultFile) {
 }
 
 def adjustUrlToVersion(String version, String url) {
-  baseUrl = "http://ivy:8080/";
+  def baseUrl = "http://ivy:8080/";
   if (version.startsWith("7.")) {
     baseUrl += "ivy/";
     if (url.contains("system/faces/javax.faces.resource/")) {
