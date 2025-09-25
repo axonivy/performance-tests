@@ -24,9 +24,6 @@ pipeline {
             maven cmd: 'clean verify -f testProjects/12.0.0/Performance/pom.xml'
           }
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/21/Dockerfile .').inside {
-            maven cmd: 'clean verify -f testProjects/13.1.0/Performance/pom.xml'
-          }
-          docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/21/Dockerfile .').inside {
             maven cmd: 'clean verify -f testProjects/latest/Performance/pom.xml'
           }
         }
