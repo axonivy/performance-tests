@@ -43,7 +43,6 @@ pipeline {
           prepareIvyContainer('12.0.0')
           prepareIvyContainer('12.0.x')
           prepareIvyContainer('12.0.n')
-          prepareIvyContainer('13.1.n')
           prepareIvyContainer('dev')
         }
       }
@@ -60,7 +59,6 @@ pipeline {
           runPerformanceTests('10.0.x')
           runPerformanceTests('12.0.n')
           runPerformanceTests('12.0.x')
-          runPerformanceTests('13.1.n')
 
           // static releases
           runPerformanceTests('10.0.0')
@@ -199,6 +197,7 @@ def checkErrors() {
     result = result.replace("\n", ", ")
     unstable "There are errors in: "+result
   } catch(exe) {
+
   }
 }
 
