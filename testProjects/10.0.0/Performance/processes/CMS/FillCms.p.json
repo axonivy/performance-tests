@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/13.1.2/process.json",
   "id" : "1791C53DC81E6D3E",
   "config" : {
     "data" : "performance.Data"
@@ -35,19 +35,22 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     }, {
       "id" : "f0",
       "type" : "RequestStart",
       "name" : "fillCms.ivp",
       "config" : {
-        "callSignature" : "fillCms",
-        "outLink" : "fillCms.ivp"
+        "signature" : "fillCms"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },
         "labelOffset" : { "x" : 13, "y" : 37 }
       },
-      "connect" : { "id" : "f4", "to" : "f3" }
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
     } ]
 }
