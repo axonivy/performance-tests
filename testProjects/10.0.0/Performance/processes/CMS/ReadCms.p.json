@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/13.1.2/process.json",
   "id" : "1791C5396913061C",
   "config" : {
     "data" : "performance.Data"
@@ -9,14 +9,15 @@
       "type" : "RequestStart",
       "name" : "readCmsString.ivp",
       "config" : {
-        "callSignature" : "readCmsString",
-        "outLink" : "readCmsString.ivp"
+        "signature" : "readCmsString"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },
         "labelOffset" : { "x" : 11, "y" : 37 }
       },
-      "connect" : { "id" : "f4", "to" : "f3" }
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -51,19 +52,22 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     }, {
       "id" : "f5",
       "type" : "RequestStart",
       "name" : "readCmsFile.ivp",
       "config" : {
-        "callSignature" : "readCmsFile",
-        "outLink" : "readCmsFile.ivp"
+        "signature" : "readCmsFile"
       },
       "visual" : {
         "at" : { "x" : 88, "y" : 160 }
       },
-      "connect" : { "id" : "f8", "to" : "f7" }
+      "connect" : [
+        { "id" : "f8", "to" : "f7" }
+      ]
     }, {
       "id" : "f6",
       "type" : "TaskEnd",
@@ -98,6 +102,8 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 160 }
       },
-      "connect" : { "id" : "f9", "to" : "f6" }
+      "connect" : [
+        { "id" : "f9", "to" : "f6" }
+      ]
     } ]
 }
