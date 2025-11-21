@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.security.PermitAll;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -19,7 +19,7 @@ public class PersonService
 
   public PersonService()
   {
-    addNewPerson("Bruno", "Bütler");
+    addNewPerson("Bruno", "BÃ¼tler");
     addNewPerson("Reto", "Weiss");
     addNewPerson("Renato", "Stalder");
     addNewPerson("Reguel", "Wermelinger");
