@@ -7,7 +7,6 @@ import ch.ivyteam.ivy.security.ISecurityContext;
 import performance.businessdata.model.Dossier;
 import performance.businessdata.model.gen.RandomDossier;
 
-@SuppressWarnings("restriction")
 public class BusinessDataPerformance {
 
   private static final int COUNT = 1_000;
