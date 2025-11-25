@@ -1,0 +1,16 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/13.2.0/data-class.json",
+  "simpleName" : "Person",
+  "namespace" : "performance.task",
+  "fields" : [ {
+    "name" : "name"
+  }, {
+    "name" : "surname"
+  }, {
+    "name" : "addresses",
+    "type" : "List<performance.task.Address>"
+  }, {
+    "name" : "phones",
+    "type" : "List<performance.task.Phone>"
+  } ]
+}
