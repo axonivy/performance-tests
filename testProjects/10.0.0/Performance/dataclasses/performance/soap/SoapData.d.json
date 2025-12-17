@@ -1,9 +1,0 @@
-{
-  "$schema" : "https://json-schema.axonivy.com/data-class/13.2.0/data-class.json",
-  "simpleName" : "SoapData",
-  "namespace" : "performance.soap",
-  "fields" : [ {
-    "name" : "persons",
-    "type" : "List<performance.client.Person>"
-  } ]
-}

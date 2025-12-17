@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/13.2.0/process.json",
+  "format" : "10.0.0",
   "id" : "17491D197ECC2DB6",
   "config" : {
     "data" : "performance.Data"
@@ -9,15 +9,14 @@
       "type" : "RequestStart",
       "name" : "logErrors.ivp",
       "config" : {
-        "signature" : "logErrors"
+        "callSignature" : "logErrors",
+        "outLink" : "logErrors.ivp"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },
         "labelOffset" : { "x" : 22, "y" : 37 }
       },
-      "connect" : [
-        { "id" : "f4", "to" : "f3" }
-      ]
+      "connect" : { "id" : "f4", "to" : "f3" }
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -39,9 +38,7 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
-      "connect" : [
-        { "id" : "f2", "to" : "f1" }
-      ]
+      "connect" : { "id" : "f2", "to" : "f1" }
     }, {
       "id" : "f5",
       "type" : "TaskEnd",
@@ -63,22 +60,19 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 152 }
       },
-      "connect" : [
-        { "id" : "f8", "to" : "f5" }
-      ]
+      "connect" : { "id" : "f8", "to" : "f5" }
     }, {
       "id" : "f7",
       "type" : "RequestStart",
       "name" : "logDebug.ivp",
       "config" : {
-        "signature" : "logDebug"
+        "callSignature" : "logDebug",
+        "outLink" : "logDebug.ivp"
       },
       "visual" : {
         "at" : { "x" : 88, "y" : 152 },
         "labelOffset" : { "x" : 23, "y" : 37 }
       },
-      "connect" : [
-        { "id" : "f9", "to" : "f6" }
-      ]
+      "connect" : { "id" : "f9", "to" : "f6" }
     } ]
 }

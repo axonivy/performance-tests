@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/13.2.0/process.json",
+  "format" : "10.0.0",
   "id" : "17273D0D9D496ED8",
   "config" : {
     "data" : "performance.rest.RestData"
@@ -9,15 +9,14 @@
       "type" : "RequestStart",
       "name" : "element.ivp",
       "config" : {
-        "signature" : "element"
+        "callSignature" : "element",
+        "outLink" : "element.ivp"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },
         "labelOffset" : { "x" : 13, "y" : 37 }
       },
-      "connect" : [
-        { "id" : "f4", "to" : "f3" }
-      ]
+      "connect" : { "id" : "f4", "to" : "f3" }
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -28,36 +27,29 @@
       "id" : "f3",
       "type" : "RestClientCall",
       "config" : {
-        "target" : {
-          "clientId" : "66449c3d-3315-4036-985e-8d7956bff2cc"
-        },
-        "response" : {
-          "entity" : {
-            "type" : "List<performance.rest.service.Person>",
-            "code" : "in.persons = result;"
-          }
-        }
+        "clientId" : "66449c3d-3315-4036-985e-8d7956bff2cc",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "statusErrorCode" : "ivy:error:rest:client",
+        "resultType" : "List<performance.rest.service.Person>",
+        "responseCode" : "in.persons = result;"
       },
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
-      "connect" : [
-        { "id" : "f2", "to" : "f1" }
-      ]
+      "connect" : { "id" : "f2", "to" : "f1" }
     }, {
       "id" : "f5",
       "type" : "RequestStart",
       "name" : "api.ivp",
       "config" : {
-        "signature" : "api"
+        "callSignature" : "api",
+        "outLink" : "api.ivp"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 192 },
         "labelOffset" : { "x" : 11, "y" : 37 }
       },
-      "connect" : [
-        { "id" : "f7", "to" : "f6" }
-      ]
+      "connect" : { "id" : "f7", "to" : "f6" }
     }, {
       "id" : "f6",
       "type" : "Script",
@@ -74,9 +66,7 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 192 }
       },
-      "connect" : [
-        { "id" : "f9", "to" : "f8" }
-      ]
+      "connect" : { "id" : "f9", "to" : "f8" }
     }, {
       "id" : "f8",
       "type" : "TaskEnd",

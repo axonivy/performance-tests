@@ -4,7 +4,12 @@
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-		<classpathentry kind="src" path="src_wsproc">
+	<classpathentry excluding="**/*.ivyClass|**/*.mod|**/*.rddescriptor|**/*.xhtml" kind="src" path="src_hd">
+		<attributes>
+			<attribute name="optional" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src_wsproc">
 		<attributes>
 			<attribute name="optional" value="true"/>
 		</attributes>
@@ -12,12 +17,6 @@
 	<classpathentry kind="src" path="src_dataClasses">
 		<attributes>
 			<attribute name="optional" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" path="src_generated">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="ignore_optional_problems" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="IVY_CONTAINER"/>
