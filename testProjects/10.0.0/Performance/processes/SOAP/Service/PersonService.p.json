@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/13.2.0/process.json",
   "id" : "17297D0F7635769C",
   "kind" : "WEB_SERVICE",
   "config" : {
@@ -11,10 +11,10 @@
       "type" : "WebserviceStart",
       "name" : "call()",
       "config" : {
-        "callSignature" : "call",
+        "signature" : "call",
         "result" : {
           "params" : [
-            { "name" : "persons", "type" : "List<performance.rest.service.Person>" }
+            { "name" : "persons", "type" : "List<performance.rest.service.Person>", "desc" : "" }
           ],
           "map" : {
             "result.persons" : "in.persons"
@@ -25,7 +25,9 @@
         "at" : { "x" : 96, "y" : 64 },
         "labelOffset" : { "x" : 10, "y" : 37 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     }, {
       "id" : "ws1",
       "type" : "WebserviceEnd",
@@ -70,6 +72,8 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
-      "connect" : { "id" : "f0", "to" : "ws1" }
+      "connect" : [
+        { "id" : "f0", "to" : "ws1" }
+      ]
     } ]
 }
