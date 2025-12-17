@@ -36,8 +36,6 @@
       "config" : {
         "output" : {
           "code" : [
-            "import ch.ivyteam.ivy.rule.engine.api.IRuleBase;",
-            "",
             "ivy.rules.create()",
             "  .namespace(\"rule.engine.drl\")",
             "  .executor()",
