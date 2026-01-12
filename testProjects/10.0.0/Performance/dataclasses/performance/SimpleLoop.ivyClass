@@ -1,4 +1,0 @@
-SimpleLoop #class
-performance #namespace
-counter Number #field
-counter PERSISTENT #fieldModifier
