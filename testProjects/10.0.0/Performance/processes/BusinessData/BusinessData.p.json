@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/13.2.0/process.json",
   "id" : "1848AB6ADCA8F207",
   "config" : {
     "data" : "performance.Data"
@@ -9,13 +9,14 @@
       "type" : "RequestStart",
       "name" : "fillBusinessData.ivp",
       "config" : {
-        "callSignature" : "fillBusinessData",
-        "outLink" : "fillBusinessData.ivp"
+        "signature" : "fillBusinessData"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
       },
-      "connect" : { "id" : "f4", "to" : "f3" }
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -36,19 +37,22 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     }, {
       "id" : "f5",
       "type" : "RequestStart",
       "name" : "searchBusinessData.ivp",
       "config" : {
-        "callSignature" : "searchBusinessData",
-        "outLink" : "searchBusinessData.ivp"
+        "signature" : "searchBusinessData"
       },
       "visual" : {
         "at" : { "x" : 88, "y" : 144 }
       },
-      "connect" : { "id" : "f8", "to" : "f6" }
+      "connect" : [
+        { "id" : "f8", "to" : "f6" }
+      ]
     }, {
       "id" : "f6",
       "type" : "Script",
@@ -63,7 +67,9 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 144 }
       },
-      "connect" : { "id" : "f9", "to" : "f7" }
+      "connect" : [
+        { "id" : "f9", "to" : "f7" }
+      ]
     }, {
       "id" : "f7",
       "type" : "TaskEnd",
@@ -75,13 +81,14 @@
       "type" : "RequestStart",
       "name" : "findBusinessData.ivp",
       "config" : {
-        "callSignature" : "findBusinessData",
-        "outLink" : "findBusinessData.ivp"
+        "signature" : "findBusinessData"
       },
       "visual" : {
         "at" : { "x" : 80, "y" : 224 }
       },
-      "connect" : { "id" : "f12", "to" : "f11" }
+      "connect" : [
+        { "id" : "f12", "to" : "f11" }
+      ]
     }, {
       "id" : "f11",
       "type" : "Script",
@@ -96,7 +103,9 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 224 }
       },
-      "connect" : { "id" : "f14", "to" : "f13" }
+      "connect" : [
+        { "id" : "f14", "to" : "f13" }
+      ]
     }, {
       "id" : "f13",
       "type" : "TaskEnd",
