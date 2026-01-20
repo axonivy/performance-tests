@@ -118,7 +118,9 @@ def runPerformanceTestsInContainer(String version) {
   runPerformanceTest(version, "restApi", "performance/pro/Performance/17273D0D9D496ED8/api.ivp")
   runPerformanceTest(version, "soapElement", "performance/pro/Performance/17297D7F72BCF2F9/element.ivp")
   runPerformanceTest(version, "dbElement", "performance/pro/Performance/17297CB96C670B79/element.ivp")
-  runPerformanceTest(version, "rule", "performance/pro/Performance/172E670BBE4A3218/compileAndExecuteRule.ivp")
+  if (supportsRule(version)) {
+    runPerformanceTest(version, "rule", "performance/pro/Performance/172E670BBE4A3218/compileAndExecuteRule.ivp")
+  }
   runPerformanceTest(version, "logDebug", "performance/pro/Performance/17491D197ECC2DB6/logDebug.ivp")
   runPerformanceTest(version, "logError", "performance/pro/Performance/17491D197ECC2DB6/logErrors.ivp")
   runPerformanceTest(version, "readCmsString", "performance/pro/Performance/1791C5396913061C/readCmsString.ivp")
@@ -133,6 +135,10 @@ def runPerformanceTestsInContainer(String version) {
     runPerformanceTest(version, "notificationRender", "performance/pro/Performance/18E2D005A95C1C56/render.ivp")
     runOnce(version, "notification after", "performance/pro/Performance/18E2CF64C4D238CB/after.ivp")
   }
+}
+
+def supportsRule(String version) {
+  return version.startsWith("13.") || version.startsWith("12.0.") || version.startsWith("10.0.");
 }
 
 def supportsNotification(String version) {
