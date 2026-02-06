@@ -6,4 +6,4 @@ WebServiceClients:
     WsCallLibrary: CXF
     Endpoints:
       PersonServicePort:
-      - '{ivy.app.baseurl}/ws/Performance/17297D0F7635769C'
+      - ${ivy.app.baseurl}/ws/Performance/17297D0F7635769C
