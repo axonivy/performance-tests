@@ -1,19 +1,15 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/11.4.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "Member",
   "namespace" : "performance.rule",
-  "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "purchaseAmount",
-    "type" : "Number",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "Number"
   }, {
     "name" : "discount",
-    "type" : "Number",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "Number"
   }, {
     "name" : "memberType",
-    "type" : "performance.rule.MemberType",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "performance.rule.MemberType"
   } ]
 }
