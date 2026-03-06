@@ -1,9 +1,9 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/14.0-dev/config/webservice-clients-1.json
 WebServiceClients:
   PersonService:
     Id: 17297D66BE667121
     ServiceClass: performance.client.PersonServiceService
     WsdlUrl: http://localhost:8081/ivy/ws/designer/Performance/17297D0F7635769C?WSDL
-    WsCallLibrary: CXF
     Endpoints:
       PersonServicePort:
-      - '{ivy.app.baseurl}/ws/Performance/17297D0F7635769C'
+        - '{ivy.app.baseurl}/ws/Performance/17297D0F7635769C'

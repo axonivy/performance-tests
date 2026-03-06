@@ -1,19 +1,13 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/11.4.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "Person",
   "namespace" : "performance.rest.service",
-  "isBusinessCaseData" : false,
   "fields" : [ {
-    "name" : "FirstName",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "name" : "FirstName"
   }, {
-    "name" : "LastName",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "name" : "LastName"
   }, {
     "name" : "Id",
-    "type" : "java.util.UUID",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "java.util.UUID"
   } ]
 }
