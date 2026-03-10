@@ -1,0 +1,124 @@
+<wsdl:definitions xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:ns1="ch.ivyteam.ivy.webservice.process" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:targetNamespace="http://performance/" xmlns:tns="http://performance/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PersonServiceService" targetNamespace="http://performance/">
+  <wsdl:types>
+<xs:schema xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:ns1="ch.ivyteam.ivy.webservice.process" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:targetNamespace="http://performance/" xmlns:tns="http://performance/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" targetNamespace="http://performance/" version="1.0">
+
+  
+  <xs:element name="call" type="tns:call"></xs:element>
+
+  
+  <xs:element name="callResponse" type="tns:callResponse"></xs:element>
+
+  
+  <xs:complexType name="call">
+    
+    <xs:sequence></xs:sequence>
+  
+  </xs:complexType>
+
+  
+  <xs:complexType name="callResponse">
+    
+    <xs:sequence>
+      
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="persons" type="tns:person"></xs:element>
+    
+    </xs:sequence>
+  
+  </xs:complexType>
+
+  
+  <xs:complexType name="person">
+    
+    <xs:complexContent>
+      
+      <xs:extension base="tns:compositeObject">
+        
+        <xs:sequence>
+          
+          <xs:element minOccurs="0" name="firstName" type="xs:string"></xs:element>
+          
+          <xs:element minOccurs="0" name="id" type="xs:string"></xs:element>
+          
+          <xs:element minOccurs="0" name="lastName" type="xs:string"></xs:element>
+        
+        </xs:sequence>
+      
+      </xs:extension>
+    
+    </xs:complexContent>
+  
+  </xs:complexType>
+
+  
+  <xs:complexType abstract="true" name="compositeObject">
+    
+    <xs:complexContent>
+      
+      <xs:extension base="tns:nestedObject">
+        
+        <xs:sequence></xs:sequence>
+      
+      </xs:extension>
+    
+    </xs:complexContent>
+  
+  </xs:complexType>
+
+  
+  <xs:complexType abstract="true" name="nestedObject">
+    
+    <xs:sequence></xs:sequence>
+  
+  </xs:complexType>
+
+
+</xs:schema>
+<xsd:schema xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:ns1="ch.ivyteam.ivy.webservice.process" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:targetNamespace="http://performance/" xmlns:tns="ch.ivyteam.ivy.webservice.process" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="ch.ivyteam.ivy.webservice.process">
+  
+  <xsd:element name="TechnicalException" nillable="true" type="xsd:string"></xsd:element>
+
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="call">
+    <wsdl:part element="targetNamespace:call" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebServiceProcessTechnicalException">
+    <wsdl:part element="ns1:TechnicalException" name="WebServiceProcessTechnicalException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="callResponse">
+    <wsdl:part element="targetNamespace:callResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonService">
+    <wsdl:operation name="call">
+      <wsdl:input message="targetNamespace:call" name="call">
+    </wsdl:input>
+      <wsdl:output message="targetNamespace:callResponse" name="callResponse">
+    </wsdl:output>
+      <wsdl:fault message="targetNamespace:WebServiceProcessTechnicalException" name="WebServiceProcessTechnicalException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonServiceServiceSoapBinding" type="targetNamespace:PersonService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="call">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="call">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="callResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="WebServiceProcessTechnicalException">
+        <soap:fault name="WebServiceProcessTechnicalException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonServiceService">
+    <wsdl:port binding="targetNamespace:PersonServiceServiceSoapBinding" name="PersonServicePort">
+      <soap:address location="http://localhost:8081/ivy/ws/designer/Performance/17297D0F7635769C"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

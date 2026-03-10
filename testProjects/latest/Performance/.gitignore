@@ -13,6 +13,6 @@ target/
 
 # ivy
 classes/
-src_dataClasses/
-src_wsproc/
+src_generated/dataclass/
+src_generated/wsprocess/
 logs/
