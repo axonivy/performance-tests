@@ -29,7 +29,7 @@
       "type" : "RestClientCall",
       "config" : {
         "target" : {
-          "clientId" : "66449c3d-3315-4036-985e-8d7956bff2cc"
+          "clientId" : "PersonService"
         },
         "response" : {
           "entity" : {
