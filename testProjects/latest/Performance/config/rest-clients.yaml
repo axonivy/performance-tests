@@ -1,9 +1,10 @@
-# yaml-language-server: $schema=https://json-schema.axonivy.com/14.0-dev/config/rest-clients.json
+# yaml-language-server: $schema=https://json-schema.axonivy.com/14.0-dev/config/rest-clients-1.json
 RestClients:
   PersonService:
-    UUID: 66449c3d-3315-4036-985e-8d7956bff2cc
+    Name: PersonService
     Url: '{ivy.app.baseurl}/api/persons'
     Features:
       - ch.ivyteam.ivy.rest.client.mapper.JsonFeature
     Properties:
       JSON.Deserialization.FAIL_ON_UNKNOWN_PROPERTIES: 'false'
+    LegacyUUID: 66449c3d-3315-4036-985e-8d7956bff2cc
