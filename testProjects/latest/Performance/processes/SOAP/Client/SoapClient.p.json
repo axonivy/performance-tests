@@ -28,7 +28,7 @@
       "id" : "f3",
       "type" : "WebServiceCall",
       "config" : {
-        "clientId" : "17297D66BE667121",
+        "clientId" : "PersonService",
         "operation" : {
           "name" : "call",
           "port" : "PersonServicePort"
