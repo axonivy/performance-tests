@@ -107,7 +107,11 @@ def runPerformanceTests(String version) {
 def runPerformanceTestsInContainer(String version) {
   echo "Going to test $version"
   runPerformanceTest(version, "infoPage", "")
-  runPerformanceTest(version, "themeCss", "system/faces/javax.faces.resource/theme.css?ln=primefaces-freya-ivy-light")
+  if (usesJakarta(version)) {
+    runPerformanceTest(version, "themeCss", "system/faces/jakarta.faces.resource/theme.css?ln=primefaces-freya-ivy-light")
+  } else {
+    runPerformanceTest(version, "themeCss", "system/faces/javax.faces.resource/theme.css?ln=primefaces-freya-ivy-light")
+  }
   runPerformanceTest(version, "processEngineSimpleLoop", "performance/pro/Performance/17273CC5183C042A/start.ivp")
   runPerformanceTest(version, "restElement", "performance/pro/Performance/17273D0D9D496ED8/element.ivp")
   runPerformanceTest(version, "restApi", "performance/pro/Performance/17273D0D9D496ED8/api.ivp")
@@ -138,6 +142,10 @@ def supportsRule(String version) {
 
 def supportsNotification(String version) {
   return version.equals("dev") || version.startsWith("13.") || version.startsWith("12.0.");
+}
+
+def usesJakarta(String version) {
+  return version.equals("dev") || version.startsWith("14.0.");
 }
 
 def waitUntilIvyIsRunning(def container) {
