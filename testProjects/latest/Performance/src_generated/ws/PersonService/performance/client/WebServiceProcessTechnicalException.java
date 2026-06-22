@@ -1,8 +1,8 @@
 
 package performance.client;
 
-import javax.annotation.Generated;
-import javax.xml.ws.WebFault;
+import jakarta.annotation.Generated;
+import jakarta.xml.ws.WebFault;
 
 
 /**
