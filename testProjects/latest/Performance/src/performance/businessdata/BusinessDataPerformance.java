@@ -16,7 +16,7 @@ public class BusinessDataPerformance {
     var repo = Ivy.repo();
     var es = ISearchEngineManager.instance();
 
-    es.indexing(false);
+    //es.indexing(false);
     try {
       for (var i = 0; i < COUNT; i++) {
         var dossier = RandomDossier.generate();
@@ -25,7 +25,7 @@ public class BusinessDataPerformance {
       var index = IBusinessDataManager.instance().getBusinessDataIndex(ISecurityContext.current().getName(), Dossier.class);
       es.reindex(index.toIndexName());
     } finally {
-      es.indexing(true);
+      //es.indexing(true);
     }
 
     while (ID_TO_READ == null) {
