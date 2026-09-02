@@ -16,10 +16,7 @@ pipeline {
   stages {
     stage('build-test-projects') {
       steps  {
-        script {
-          docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/17/Dockerfile .').inside {
-            maven cmd: 'clean verify -f testProjects/10.0.0/Performance/pom.xml'
-          }
+        script {          
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/21/Dockerfile .').inside {
             maven cmd: 'clean verify -f testProjects/12.0.0/Performance/pom.xml'
           }          
@@ -34,9 +31,6 @@ pipeline {
       steps {
         script {
           docker.build("wrk:${env.BUILD_ID}", '-f docker/wrk/Dockerfile .')
-          prepareIvyContainer('10.0.0')
-          prepareIvyContainer('10.0.x')
-          prepareIvyContainer('10.0.n')
           prepareIvyContainer('12.0.0')
           prepareIvyContainer('12.0.x')
           prepareIvyContainer('12.0.n')
@@ -52,13 +46,10 @@ pipeline {
           
           // frequently updated:
           runPerformanceTests('dev')
-          runPerformanceTests('10.0.n')
-          runPerformanceTests('10.0.x')
           runPerformanceTests('12.0.n')
           runPerformanceTests('12.0.x')
 
           // static releases
-          runPerformanceTests('10.0.0')
           runPerformanceTests('12.0.0')
         }
       }
@@ -128,21 +119,17 @@ def runPerformanceTestsInContainer(String version) {
   runPerformanceTest(version, "businessDataSearch", "performance/pro/Performance/1848AB6ADCA8F207/searchBusinessData.ivp")
   runPerformanceTest(version, "businessDataFind", "performance/pro/Performance/1848AB6ADCA8F207/findBusinessData.ivp")
   runPerformanceTest(version, "task", "performance/pro/Performance/184D1FD2D64C0ADB/task.ivp")
-  if (supportsNotification(version)) {
-    runOnce(version, "notification before", "performance/pro/Performance/18E2CF64C4D238CB/before.ivp")
-    runPerformanceTest(version, "notificationTask", "performance/pro/Performance/18E2CF2431E9C990/task.ivp")
-    runPerformanceTest(version, "notificationRender", "performance/pro/Performance/18E2D005A95C1C56/render.ivp")
-    runOnce(version, "notification after", "performance/pro/Performance/18E2CF64C4D238CB/after.ivp")
-  }
+  runOnce(version, "notification before", "performance/pro/Performance/18E2CF64C4D238CB/before.ivp")
+  runPerformanceTest(version, "notificationTask", "performance/pro/Performance/18E2CF2431E9C990/task.ivp")
+  runPerformanceTest(version, "notificationRender", "performance/pro/Performance/18E2D005A95C1C56/render.ivp")
+  runOnce(version, "notification after", "performance/pro/Performance/18E2CF64C4D238CB/after.ivp")
+  
 }
 
 def supportsRule(String version) {
-  return version.startsWith("13.") || version.startsWith("12.0.") || version.startsWith("10.0.");
+  return version.startsWith("12.0.");
 }
 
-def supportsNotification(String version) {
-  return version.equals("dev") || version.startsWith("13.") || version.startsWith("12.0.");
-}
 
 def usesJakarta(String version) {
   return version.equals("dev") || version.startsWith("14.0.");
