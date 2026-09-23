@@ -1,0 +1,15 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/14.0/project/data-class.json",
+  "simpleName" : "Address",
+  "namespace" : "performance.task",
+  "fields" : [ {
+    "name" : "street"
+  }, {
+    "name" : "zip",
+    "type" : "Number"
+  }, {
+    "name" : "city"
+  }, {
+    "name" : "description"
+  } ]
+}

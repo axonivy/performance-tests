@@ -1,0 +1,9 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/14.0/project/data-class.json",
+  "simpleName" : "RestData",
+  "namespace" : "performance.rest",
+  "fields" : [ {
+    "name" : "persons",
+    "type" : "List<performance.rest.service.Person>"
+  } ]
+}

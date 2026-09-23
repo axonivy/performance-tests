@@ -1,0 +1,5 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/14.0/config/databases.json
+Databases:
+  SystemDatabase:
+    Url: jdbc:hsqldb:mem:AxonIvySystemDatabase
+    Driver: org.hsqldb.jdbcDriver

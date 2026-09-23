@@ -1,0 +1,15 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/14.0/project/data-class.json",
+  "simpleName" : "Member",
+  "namespace" : "performance.rule",
+  "fields" : [ {
+    "name" : "purchaseAmount",
+    "type" : "Number"
+  }, {
+    "name" : "discount",
+    "type" : "Number"
+  }, {
+    "name" : "memberType",
+    "type" : "performance.rule.MemberType"
+  } ]
+}
