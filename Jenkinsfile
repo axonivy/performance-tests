@@ -19,7 +19,10 @@ pipeline {
         script {          
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/21/Dockerfile .').inside {
             maven cmd: 'clean verify -f testProjects/12.0.0/Performance/pom.xml'
-          }          
+          }
+          docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/25/Dockerfile .').inside {
+            maven cmd: 'clean verify -f testProjects/14.0.0/Performance/pom.xml'
+          }
           docker.build("mvn:${env.BUILD_ID}", '-f docker/mvn/25/Dockerfile .').inside {
             maven cmd: 'clean verify -f testProjects/latest/Performance/pom.xml'
           }
@@ -34,6 +37,7 @@ pipeline {
           prepareIvyContainer('12.0.0')
           prepareIvyContainer('12.0.x')
           prepareIvyContainer('12.0.n')
+          prepareIvyContainer('14.0.n')
           prepareIvyContainer('dev')
         }
       }
@@ -46,6 +50,7 @@ pipeline {
           
           // frequently updated:
           runPerformanceTests('dev')
+          runPerformanceTests('14.0.n')
           runPerformanceTests('12.0.n')
           runPerformanceTests('12.0.x')
 
@@ -83,7 +88,7 @@ def runPerformanceTests(String version) {
     } finally {
       sh "docker logs ${ivyContainer.id} > logs/${version}.log"
       sh "docker stop ${ivyContainer.id}"
-      if (version.equals("dev") || version.startsWith("13.") || version.startsWith("12.0.")) {
+      if (version.equals("dev") || version.startsWith("14.") || version.startsWith("13.") || version.startsWith("12.0.")) {
         sh "docker cp ${ivyContainer.id}:/ivy/recording.jfr recordings/${version}.jfr"
       } else {
         sh "docker cp ${ivyContainer.id}:/usr/lib/axonivy-engine/recording.jfr recordings/${version}.jfr"
@@ -123,7 +128,6 @@ def runPerformanceTestsInContainer(String version) {
   runPerformanceTest(version, "notificationTask", "performance/pro/Performance/18E2CF2431E9C990/task.ivp")
   runPerformanceTest(version, "notificationRender", "performance/pro/Performance/18E2D005A95C1C56/render.ivp")
   runOnce(version, "notification after", "performance/pro/Performance/18E2CF64C4D238CB/after.ivp")
-  
 }
 
 def supportsRule(String version) {
@@ -155,7 +159,6 @@ def runPerformanceTest(String version, String name, String url) {
   String resultFile = "results/" + version + "_" + name + ".wrk";
   url = adjustUrlToVersion(version, url)
   echo "Testing $url"
-  
   warmUp(url)
   test(url, resultFile)
 }
@@ -234,7 +237,7 @@ def parseAverageResponseTime(String content) {
     } 
   }
   return avgResponseTime
-} 
+}
 
 def parseAverageResponseTimeFromLine(String line) {
   def parts = line.trim().split();
@@ -243,20 +246,16 @@ def parseAverageResponseTimeFromLine(String line) {
   if (responseTime.endsWith("ns")) {
     responseTime = responseTime.substring(0, responseTime.length() - 2)
     factor = 0.000001d
-  }
-  else if (responseTime.endsWith("us")) {
+  } else if (responseTime.endsWith("us")) {
     responseTime = responseTime.substring(0, responseTime.length() - 2)
     factor = 0.001d
-  }
-  else if (responseTime.endsWith("ms")) {
+  } else if (responseTime.endsWith("ms")) {
     responseTime = responseTime.substring(0, responseTime.length() - 2)
     factor = 1.0d
-  }
-  else if (responseTime.endsWith("s")) {
+  } else if (responseTime.endsWith("s")) {
     responseTime = responseTime.substring(0, responseTime.length() - 1)
     factor = 1000.0d
-  }
-  else {
+  } else {
     throw new IllegalArgumentException("Cannot parse "+responseTime)
   }
   def time = Double.parseDouble(responseTime)
@@ -273,8 +272,7 @@ def toTests(Map times) {
       def version = parts[0]
       def records = tests[name]
       def value = entry.value.toString()
-      if (records == null)
-      {
+      if (records == null) {
         records = [[], []]
         tests[name] = records
       }
